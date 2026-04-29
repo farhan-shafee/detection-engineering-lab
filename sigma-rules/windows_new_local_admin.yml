@@ -1,0 +1,28 @@
+title: Windows New Local Admin User
+id: 3609d45e-b42a-4ce5-9ca5-5f4ee214fe0d
+status: experimental
+description: Detects creation of a local account and addition to local administrators.
+references:
+  - https://attack.mitre.org/techniques/T1136/001/
+author: Portfolio Lab
+date: 2026-04-29
+logsource:
+  product: windows
+  service: security
+detection:
+  create_user:
+    EventID: 4720
+  add_admin_group:
+    EventID: 4732
+    TargetUserName|contains: Administrators
+  condition: create_user and add_admin_group
+fields:
+  - TargetUserName
+  - SubjectUserName
+  - Computer
+falsepositives:
+  - Authorized endpoint provisioning tasks.
+level: high
+tags:
+  - attack.persistence
+  - attack.t1136.001

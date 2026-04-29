@@ -1,0 +1,5 @@
+[
+  {"EventID": 4720, "Computer": "srv-22", "TargetUserName": "helpdesk-temp", "SubjectUserName": "itadmin"},
+  {"EventID": 4732, "Computer": "srv-22", "TargetUserName": "Administrators", "MemberName": "helpdesk-temp"},
+  {"EventID": 4688, "Computer": "wkstn-014", "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "CommandLine": "powershell.exe -EncodedCommand SQBtAHAA"}
+]

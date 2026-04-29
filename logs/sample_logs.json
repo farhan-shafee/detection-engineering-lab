@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "timestamp": "2026-04-01T11:20:30Z",
+    "host": "wkstn-014",
+    "event_id": 4625,
+    "user": "jdoe",
+    "source_ip": "203.0.113.24",
+    "status": "FAILED_LOGON"
+  },
+  {
+    "timestamp": "2026-04-01T11:22:01Z",
+    "host": "wkstn-014",
+    "event_id": 4624,
+    "user": "jdoe",
+    "source_ip": "203.0.113.24",
+    "status": "SUCCESS_LOGON"
+  }
+]
