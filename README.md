@@ -72,7 +72,7 @@ make test          # Run all checks
 ```text
 $ make test
 python3 scripts/validate_rules.py
-Validated 3 Sigma rule(s): OK
+Validated 4 Sigma rule(s): OK
 python3 -m json.tool logs/sample_logs.json > /dev/null
 python3 -m json.tool logs/windows/windows_security_events.json > /dev/null
 All tests passed.
