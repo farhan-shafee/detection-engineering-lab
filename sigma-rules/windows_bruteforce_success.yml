@@ -1,0 +1,27 @@
+title: Windows Brute Force Success After Failures
+id: 1f17b2f8-c4c9-4f93-a5d7-e7b2e2570b12
+status: experimental
+description: Detects multiple failed logons followed by success for the same account.
+references:
+  - https://attack.mitre.org/techniques/T1110/
+author: Portfolio Lab
+date: 2026-04-29
+logsource:
+  product: windows
+  service: security
+detection:
+  fail:
+    EventID: 4625
+  success:
+    EventID: 4624
+  condition: fail and success
+fields:
+  - TargetUserName
+  - IpAddress
+  - Computer
+falsepositives:
+  - User mistyped password repeatedly before successful authentication.
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1110
