@@ -6,3 +6,5 @@ pySigma==0.11.23
 ruff==0.16.6
 bandit==1.9.4
 pip-audit==2.10.1
+# Replace runner-provided setuptools affected by PYSEC-2026-3447 (fixed in 83.0.0).
+setuptools==84.0.0

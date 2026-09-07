@@ -113,3 +113,5 @@ See [the live setup](live-lab.md), [telemetry and rollback](telemetry.md), and
 [live evidence status](../evidence/live/README.md) for the precise operating
 boundary. Final test/audit and GitHub Actions outcomes belong to
 `docs/validation.md`; no unobserved remote result is asserted here.
+
+The first remote Python 3.11 matrix run also found vulnerable runner-seeded `setuptools` versions. `requirements-dev.txt` now pins 84.0.0, compatible with Python 3.11 and newer, instead of accepting the runner default or excluding it from the audit. The [upstream advisory](https://github.com/pypa/setuptools/security/advisories/GHSA-h35f-9h28-mq5c) identifies 83.0.0 as the fix for the newer reported issue. Local dependency resolution and the full installed-environment audit pass with 84.0.0. Remote verification is recorded in [validation.md](validation.md).

@@ -49,3 +49,5 @@ Reviewed report SHA-256 values (LF output):
 
 - JSON: `28c6cbbb803176400d4fe736fb3b74528f325cdca12d4ddb348c198c519666db`
 - Markdown: `ca9970314411829b904c2e7bbf75b7fe2529e9450a78d560b94c44a174f7a147`
+
+First remote run [34149746937](https://github.com/farhan-shafee/detection-engineering-lab/actions/runs/34149746937) on implementation commit `e6b4fe0db67bc50962a483439f1bff46f2efa7c8` completed: both Python 3.14 jobs passed; both Python 3.11 jobs passed functional checks but failed the installed-environment vulnerability audit. The cause was runner-seeded `setuptools` (79.0.1 on Ubuntu, 65.5.0 on Windows), including advisory PYSEC-2026-3447 with a fix in 83.0.0. The validation dependencies now pin `setuptools==84.0.0` (Python >=3.10), verified against PyPI and the upstream advisory; local pip check and the complete installed-environment audit pass. The audit remains enabled without exclusions. The subsequent run is recorded below after completion.
