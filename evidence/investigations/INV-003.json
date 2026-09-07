@@ -1,0 +1,51 @@
+{
+  "id": "INV-003",
+  "detection_id": "DET-003",
+  "case_id": "positive",
+  "disposition": "needs more information",
+  "rationale": "The sequence meets the implemented threshold and timing semantics. It cannot distinguish mistyped credentials from guessing, so the simulated analyst retains uncertainty pending authorization and post-logon evidence.",
+  "evidence_refs": [
+    "D3-P1-F1",
+    "D3-P1-F2",
+    "D3-P1-F3",
+    "D3-P1-F4",
+    "D3-P1-F5",
+    "D3-P1-S1"
+  ],
+  "observations": [
+    "D3-P1-F1 through D3-P1-F5 are five 4625 events from 12:00:00Z through 12:01:20Z.",
+    "D3-P1-S1 is a 4624 success at 12:02:00Z; all six records share LAB-WIN11, LAB, lab-user and 192.0.2.10.",
+    "The time from first failure to success is 120 seconds and every failure strictly precedes success.",
+    "No originating process, parent command line or post-authentication behavior is present."
+  ],
+  "inferences": [
+    "A matching source IP does not prove the same person generated failures and success.",
+    "Both password mistypes and password guessing can produce this pattern.",
+    "The data does not support a confirmed compromise, MFA bypass, spraying or Valid Accounts claim."
+  ],
+  "next_steps": [
+    "Confirm expected login behavior with the account owner in a real authorized investigation.",
+    "Collect failure reasons, authentication package, endpoint session context and any available identity-provider telemetry.",
+    "Escalate if authorization is denied or independent post-logon evidence supports abuse; otherwise document benign cause."
+  ],
+  "context": {
+    "what": "Five authentication failures were followed by a successful logon for the same correlation key.",
+    "user": "LAB\\lab-user",
+    "host": "LAB-WIN11",
+    "process": "Not present in this fixture.",
+    "parent_process": "Not present in this fixture.",
+    "command_line": "Not present in this fixture.",
+    "timestamp": "2026-09-07T12:02:00Z",
+    "related_activity": "Contributing fixture record IDs: D3-P1-F1, D3-P1-F2, D3-P1-F3, D3-P1-F4, D3-P1-F5, D3-P1-S1. No surrounding live events were collected.",
+    "expected": "Unknown; no actual owner confirmation or change record exists."
+  },
+  "provenance": {
+    "telemetry": "deterministic",
+    "analyst_decision": "simulated",
+    "real_incident": false
+  },
+  "scenario_assumptions": [
+    "No fictional owner statement is supplied for this case; uncertainty is intentional.",
+    "192.0.2.10 is a documentation address and was not contacted."
+  ]
+}

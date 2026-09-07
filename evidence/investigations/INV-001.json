@@ -1,0 +1,45 @@
+{
+  "id": "INV-001",
+  "detection_id": "DET-001",
+  "case_id": "approved-automation",
+  "disposition": "false positive",
+  "rationale": "The initial broad rule produced noise for a fully specified approved command. The simulated analyst classifies the alert as false positive against the intended unapproved-context hypothesis and requests a narrow exception; no malicious behavior is asserted.",
+  "evidence_refs": [
+    "D1-F1"
+  ],
+  "observations": [
+    "D1-F1 records a Sysmon process-create shape with PowerShell parent, LAB\\automation user and the exact encoded command.",
+    "Base64 decodes as UTF-16LE to the literal harmless text Write-Output 'DETECTION-LAB-SAFE'; decoding is analysis, not execution.",
+    "The historical before rule matches this event; the current tuned rule is expected to suppress it."
+  ],
+  "inferences": [
+    "This is expected automation only because the scenario explicitly supplies approval context; a process event alone cannot establish approval.",
+    "Parent path and user are conditions for this lab exception, not proof that an account or executable is trustworthy."
+  ],
+  "next_steps": [
+    "Preserve the original record and before rule in the tuning record.",
+    "Apply only the exact-command, parent and user exception, and rerun positive and negative fixtures.",
+    "Reopen the exception if command, identity, parent or operating context changes."
+  ],
+  "context": {
+    "what": "Known safe automation ran encoded PowerShell.",
+    "user": "LAB\\automation",
+    "host": "LAB-WIN11",
+    "process": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "parent_process": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "command_line": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+    "timestamp": "2026-09-07T12:00:00Z",
+    "related_activity": "Contributing fixture record IDs: D1-F1. No surrounding live events were collected.",
+    "expected": "Expected in this fictional recurring lab automation scenario."
+  },
+  "provenance": {
+    "telemetry": "deterministic",
+    "analyst_decision": "simulated",
+    "real_incident": false
+  },
+  "scenario_assumptions": [
+    "Fictional change LAB-CHANGE-001 approves one recurring safe-marker command run by LAB\\automation under the stated PowerShell parent.",
+    "The change record and owner confirmation are invented scenario context, not a real enterprise approval.",
+    "This investigation refers to the before-rule alert; after tuning it is not counted as a current alert."
+  ]
+}

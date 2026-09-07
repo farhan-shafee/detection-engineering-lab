@@ -1,11 +1,12 @@
-.PHONY: lint-rules test-logs test
-
+PYTHON ?= python
+.PHONY: lint-rules test-logs test demo
 lint-rules:
-	python3 scripts/validate_rules.py
-
+	$(PYTHON) -m detection_lab validate
 test-logs:
-	python3 -m json.tool logs/sample_logs.json > /dev/null
-	python3 -m json.tool logs/windows/windows_security_events.json > /dev/null
-
-test: lint-rules test-logs
-	@echo "All tests passed."
+	$(PYTHON) -m detection_lab validate
+test:
+	$(PYTHON) -m unittest discover -s tests -v
+	$(PYTHON) -m detection_lab validate
+	$(PYTHON) -m detection_lab demo --check
+demo:
+	$(PYTHON) -m detection_lab demo

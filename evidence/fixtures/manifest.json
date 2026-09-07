@@ -1,0 +1,157 @@
+{
+  "files": [
+    {
+      "bytes": 23773,
+      "path": "detections/catalog.json",
+      "sha256": "231860a806851f064a6c11f3b449490d05f605e334bbcee4d2806dc20e4d6e63"
+    },
+    {
+      "bytes": 2615,
+      "path": "evidence/investigations/INV-001.json",
+      "sha256": "0e24438973b01c2d8ae5ab733a5b6eca94c23a9812538689ecb3b92b8f8f00d2"
+    },
+    {
+      "bytes": 2688,
+      "path": "evidence/investigations/INV-001.md",
+      "sha256": "1e2cc3d8df54c66285aa9213d31b642297e06d02d59b7dd6b77eff3f72fb12d7"
+    },
+    {
+      "bytes": 2262,
+      "path": "evidence/investigations/INV-002.json",
+      "sha256": "2aaa9244e436f72599a47c3581d0834df1c15179136cf20234804e84e2538637"
+    },
+    {
+      "bytes": 2340,
+      "path": "evidence/investigations/INV-002.md",
+      "sha256": "5068fa12a6ba5808ca1e2fb9362502e6c558b18acfad8970f13a126213d06e17"
+    },
+    {
+      "bytes": 2502,
+      "path": "evidence/investigations/INV-003.json",
+      "sha256": "b0722d6198eca07931ebcc3da490a9647f6eeafa228c4f357be26f110d5b2645"
+    },
+    {
+      "bytes": 2774,
+      "path": "evidence/investigations/INV-003.md",
+      "sha256": "7d87e155e95cda699265536815a7ecc28ddb9fb45aa94ecf33321e3632497f18"
+    },
+    {
+      "bytes": 2098,
+      "path": "evidence/investigations/INV-004.json",
+      "sha256": "ac99e7de6ed9cfc5f22a02cae67dc29bb218ed4820cb0450e5cc781243daf69c"
+    },
+    {
+      "bytes": 2184,
+      "path": "evidence/investigations/INV-004.md",
+      "sha256": "104da6364c2adaffa4980f7a0ecbb1ef7d41a36daff2f854eac70ea9459b9a13"
+    },
+    {
+      "bytes": 2134,
+      "path": "evidence/investigations/INV-005.json",
+      "sha256": "1cb9a2880a7759b62fe2babfe7fdb8df57f484f752faa7087f442f9febe1db1c"
+    },
+    {
+      "bytes": 2208,
+      "path": "evidence/investigations/INV-005.md",
+      "sha256": "0e191bcc5f5e07563da5dc22e2941091c2189fd507c8c8c0a77401f023b48998"
+    },
+    {
+      "bytes": 2010,
+      "path": "evidence/investigations/INV-006.json",
+      "sha256": "803aa6b5334151353a681a1e96d2ceb6bf237424e422c13377501991ab716863"
+    },
+    {
+      "bytes": 2090,
+      "path": "evidence/investigations/INV-006.md",
+      "sha256": "fea4243e093659946b02b0432c665cc9d68c4b5339a342a037061d1a9e981183"
+    },
+    {
+      "bytes": 2056,
+      "path": "evidence/investigations/README.md",
+      "sha256": "c5494e2f87bea0f09c40fbb13262a02c1d61470e82b16b9c31c8de42a81f2da7"
+    },
+    {
+      "bytes": 995,
+      "path": "evidence/tuning/DET-001-before.yml",
+      "sha256": "ddaca734c16f0b23363dc051bdd6627e5079f8b53a61854a39846f606501c9c5"
+    },
+    {
+      "bytes": 3170,
+      "path": "evidence/tuning/DET-001.json",
+      "sha256": "f920d9368ea559064505afceaf88071f2c67ec6cdfc03db8ad323176e0588ff5"
+    },
+    {
+      "bytes": 2601,
+      "path": "evidence/tuning/README.md",
+      "sha256": "9b8f4603a6d0d6d928b4098b288c403228fadd014340c89e5c3e6784851c0546"
+    },
+    {
+      "bytes": 12416,
+      "path": "fixtures/DET-001.json",
+      "sha256": "3ba160053cf8ad2e7d10341dd3f7567259459e7aa12fcd4d16861145fd80e715"
+    },
+    {
+      "bytes": 4167,
+      "path": "fixtures/DET-002.json",
+      "sha256": "919253c4cf9c478ec5b997a00425b22863b7a810d31e54d9889645b1474bfc32"
+    },
+    {
+      "bytes": 32339,
+      "path": "fixtures/DET-003.json",
+      "sha256": "e4b8b28dd00113125eb2b2f603c89862c27b1fb97cea4cd5e708be330298ba6d"
+    },
+    {
+      "bytes": 4332,
+      "path": "fixtures/DET-004.json",
+      "sha256": "057306675662ff2c4bce0e1c6c12ea2e389151588f6aa07023a11535b86b49e1"
+    },
+    {
+      "bytes": 6174,
+      "path": "fixtures/DET-005.json",
+      "sha256": "ea01fa550a12bba03310d97416f42d42ab33f43cf462604289ee7903876987b2"
+    },
+    {
+      "bytes": 362,
+      "path": "logs/sample_logs.json",
+      "sha256": "4f89a24d488bcf73cbe93aaf0693a245edaf8daaec8440bc57ad11614a570669"
+    },
+    {
+      "bytes": 400,
+      "path": "logs/windows/windows_security_events.json",
+      "sha256": "770497343b5d04fe032f93ac908e3921f1bf57d44ad4089483c8e0b4de2bf32f"
+    },
+    {
+      "bytes": 876,
+      "path": "sigma-rules/windows_authentication_failure.yml",
+      "sha256": "c3eb84ecea13fb0fee1bf1791abc1dd7821f51bfe4275a96f0c5332a3b45ad97"
+    },
+    {
+      "bytes": 876,
+      "path": "sigma-rules/windows_authentication_success.yml",
+      "sha256": "75fd901ae223d22ee9a29e2fa75a4da53439026440918d17e0087b73a3aa3c1b"
+    },
+    {
+      "bytes": 935,
+      "path": "sigma-rules/windows_new_local_admin.yml",
+      "sha256": "ca0cea08ac5dbabc82f2b3119eee57ccc3d0a4d1b444816493bc602b82b9e3cf"
+    },
+    {
+      "bytes": 1064,
+      "path": "sigma-rules/windows_office_powershell_child.yml",
+      "sha256": "a3f1d820158bc78589f08fc75752a2324ae985e12e226de4da14af6dbd67d37c"
+    },
+    {
+      "bytes": 1307,
+      "path": "sigma-rules/windows_powershell_encoded.yml",
+      "sha256": "10949a6ef918098c11c5501b818207a592a4e61716582f3b6257b9a19c25b494"
+    },
+    {
+      "bytes": 845,
+      "path": "sigma-rules/windows_scheduled_task_encoded.yml",
+      "sha256": "093bb9f616e5f17598c2f4dd184c1d1ad025942dab99c33c20e8bd5b0795370b"
+    }
+  ],
+  "hash_algorithm": "sha256 of UTF-8 file bytes with CRLF normalized to LF",
+  "provenance": "DETERMINISTIC fixtures and SIMULATED analyst decisions; no live capture",
+  "schema_version": 1
+}

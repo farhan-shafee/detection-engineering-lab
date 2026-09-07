@@ -1,0 +1,29 @@
+title: Authentication Success Correlation Component
+id: a66e6a3c-8505-4616-9420-1b4c211d3018
+status: experimental
+description: Selects one event type only; DET-003 Python correlation supplies threshold, grouping, ordering, and time window.
+author: Detection Engineering Lab
+date: 2026-09-07
+license: MIT
+references:
+    - https://attack.mitre.org/techniques/T1110/
+    - https://sigmahq.io/sigma-specification/specification/sigma-correlation-rules-specification.html
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4624
+        Channel: 'Security'
+    condition: selection
+fields:
+    - Computer
+    - TargetUserName
+    - TargetDomainName
+    - IpAddress
+falsepositives:
+    - Routine authentication events; do not deploy this component as an incident alert.
+level: low
+tags:
+    - attack.credential_access
+    - attack.t1110

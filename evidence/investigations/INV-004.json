@@ -1,0 +1,43 @@
+{
+  "id": "INV-004",
+  "detection_id": "DET-004",
+  "case_id": "positive",
+  "disposition": "needs more information",
+  "rationale": "The record matches action-text logic but cannot establish task execution or malicious intent. The simulated analyst requests task and change context before deciding whether escalation is justified.",
+  "evidence_refs": [
+    "D4-P1"
+  ],
+  "observations": [
+    "D4-P1 is a Security 4698-shaped record by lab-operator for \\DetectionLab\\SafeMarker.",
+    "TaskContent includes powershell.exe and an encoded-command argument for a harmless output marker.",
+    "The fixture does not include task triggers, run-as principal, task scheduler history or a launched process."
+  ],
+  "inferences": [
+    "Registration stores an action; it is not proof that the action ran.",
+    "The scheduled-task ATT&CK association is an analytic hypothesis and does not establish persistence."
+  ],
+  "next_steps": [
+    "Preserve TaskContent as text and inspect the full task definition without registering or executing it.",
+    "Request owner/change authorization, trigger/principal details and task scheduler or process execution evidence.",
+    "Choose benign positive for confirmed approved activity or escalate owner-denied suspicious registration with corroborating evidence."
+  ],
+  "context": {
+    "what": "A task registration contains an encoded PowerShell action.",
+    "user": "lab-operator",
+    "host": "LAB-WIN11",
+    "process": "Not present in this fixture.",
+    "parent_process": "Not present in this fixture.",
+    "command_line": "Task action captured in TaskContent; see source fixture.",
+    "timestamp": "2026-09-07T12:00:00Z",
+    "related_activity": "Contributing fixture record IDs: D4-P1. No surrounding live events were collected.",
+    "expected": "Unknown without task owner, principal and change context."
+  },
+  "provenance": {
+    "telemetry": "deterministic",
+    "analyst_decision": "simulated",
+    "real_incident": false
+  },
+  "scenario_assumptions": [
+    "The task record is hand-authored; no scheduled task was created on the host."
+  ]
+}

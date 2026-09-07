@@ -1,0 +1,1976 @@
+{
+  "alerts": [
+    {
+      "alert_id": "DET-001:positive:1",
+      "attack": [
+        {
+          "rationale": "PowerShell process execution directly supports an execution behavior association; benign fixtures demonstrate matching only, not malicious technique execution.",
+          "tactic": "execution",
+          "technique": "T1059.001"
+        }
+      ],
+      "case_id": "positive",
+      "detection_id": "DET-001",
+      "disposition": "benign positive",
+      "disposition_provenance": "SIMULATED analyst decision",
+      "events": [
+        {
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "Computer": "LAB-WIN11",
+          "EventID": 1,
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\explorer.exe",
+          "User": "LAB\\analyst",
+          "record_id": "D1-P1",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D1-P1"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": "INV-006",
+      "rationale": "The behavioral signal correctly matches outside the narrowly approved recurring automation exception. The harmless decoded content and explicit fixture purpose justify a simulated benign-positive disposition while preserving the alert.",
+      "severity": "medium",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Encoded PowerShell process requiring review"
+    },
+    {
+      "alert_id": "DET-001:mixed-case-switch:1",
+      "attack": [
+        {
+          "rationale": "PowerShell process execution directly supports an execution behavior association; benign fixtures demonstrate matching only, not malicious technique execution.",
+          "tactic": "execution",
+          "technique": "T1059.001"
+        }
+      ],
+      "case_id": "mixed-case-switch",
+      "detection_id": "DET-001",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "CommandLine": "powershell.exe -EnCoDeDcOmMaNd VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "Computer": "LAB-WIN11",
+          "EventID": 1,
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\explorer.exe",
+          "User": "LAB\\analyst",
+          "record_id": "D1-P2",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D1-P2"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "medium",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Encoded PowerShell process requiring review"
+    },
+    {
+      "alert_id": "DET-001:short-switch:1",
+      "attack": [
+        {
+          "rationale": "PowerShell process execution directly supports an execution behavior association; benign fixtures demonstrate matching only, not malicious technique execution.",
+          "tactic": "execution",
+          "technique": "T1059.001"
+        }
+      ],
+      "case_id": "short-switch",
+      "detection_id": "DET-001",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "CommandLine": "powershell.exe -enc VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "Computer": "LAB-WIN11",
+          "EventID": 1,
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\explorer.exe",
+          "User": "LAB\\analyst",
+          "record_id": "D1-P3",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D1-P3"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "medium",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Encoded PowerShell process requiring review"
+    },
+    {
+      "alert_id": "DET-001:other-parent:1",
+      "attack": [
+        {
+          "rationale": "PowerShell process execution directly supports an execution behavior association; benign fixtures demonstrate matching only, not malicious technique execution.",
+          "tactic": "execution",
+          "technique": "T1059.001"
+        }
+      ],
+      "case_id": "other-parent",
+      "detection_id": "DET-001",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "Computer": "LAB-WIN11",
+          "EventID": 1,
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+          "User": "LAB\\automation",
+          "record_id": "D1-P4",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D1-P4"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "medium",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Encoded PowerShell process requiring review"
+    },
+    {
+      "alert_id": "DET-001:other-user:1",
+      "attack": [
+        {
+          "rationale": "PowerShell process execution directly supports an execution behavior association; benign fixtures demonstrate matching only, not malicious technique execution.",
+          "tactic": "execution",
+          "technique": "T1059.001"
+        }
+      ],
+      "case_id": "other-user",
+      "detection_id": "DET-001",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "Computer": "LAB-WIN11",
+          "EventID": 1,
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "User": "LAB\\analyst",
+          "record_id": "D1-P5",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D1-P5"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "medium",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Encoded PowerShell process requiring review"
+    },
+    {
+      "alert_id": "DET-001:changed-payload:1",
+      "attack": [
+        {
+          "rationale": "PowerShell process execution directly supports an execution behavior association; benign fixtures demonstrate matching only, not malicious technique execution.",
+          "tactic": "execution",
+          "technique": "T1059.001"
+        }
+      ],
+      "case_id": "changed-payload",
+      "detection_id": "DET-001",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBSAEUAVgBJAEUAVwAnAA==",
+          "Computer": "LAB-WIN11",
+          "EventID": 1,
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "User": "LAB\\automation",
+          "record_id": "D1-P6",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D1-P6"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "medium",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Encoded PowerShell process requiring review"
+    },
+    {
+      "alert_id": "DET-001:appended-argument:1",
+      "attack": [
+        {
+          "rationale": "PowerShell process execution directly supports an execution behavior association; benign fixtures demonstrate matching only, not malicious technique execution.",
+          "tactic": "execution",
+          "technique": "T1059.001"
+        }
+      ],
+      "case_id": "appended-argument",
+      "detection_id": "DET-001",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA -NoLogo",
+          "Computer": "LAB-WIN11",
+          "EventID": 1,
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "User": "LAB\\automation",
+          "record_id": "D1-P7",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D1-P7"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "medium",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Encoded PowerShell process requiring review"
+    },
+    {
+      "alert_id": "DET-001:base64-case-change:1",
+      "attack": [
+        {
+          "rationale": "PowerShell process execution directly supports an execution behavior association; benign fixtures demonstrate matching only, not malicious technique execution.",
+          "tactic": "execution",
+          "technique": "T1059.001"
+        }
+      ],
+      "case_id": "base64-case-change",
+      "detection_id": "DET-001",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand vwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "Computer": "LAB-WIN11",
+          "EventID": 1,
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "User": "LAB\\automation",
+          "record_id": "D1-P-base64-case-change",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D1-P-base64-case-change"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "medium",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Encoded PowerShell process requiring review"
+    },
+    {
+      "alert_id": "DET-001:trailing-newline:1",
+      "attack": [
+        {
+          "rationale": "PowerShell process execution directly supports an execution behavior association; benign fixtures demonstrate matching only, not malicious technique execution.",
+          "tactic": "execution",
+          "technique": "T1059.001"
+        }
+      ],
+      "case_id": "trailing-newline",
+      "detection_id": "DET-001",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA\n",
+          "Computer": "LAB-WIN11",
+          "EventID": 1,
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "User": "LAB\\automation",
+          "record_id": "D1-P-trailing-newline",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D1-P-trailing-newline"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "medium",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Encoded PowerShell process requiring review"
+    },
+    {
+      "alert_id": "DET-002:positive:1",
+      "attack": [
+        {
+          "rationale": "Adding an account to a privileged local group is directly consistent with this technique, but persistence intent is not observable from one event.",
+          "tactic": "persistence",
+          "technique": "T1098.007"
+        },
+        {
+          "rationale": "The destination Administrators group grants a privileged membership; successful privilege use is not proven by the event.",
+          "tactic": "privilege_escalation",
+          "technique": "T1098.007"
+        }
+      ],
+      "case_id": "positive",
+      "detection_id": "DET-002",
+      "disposition": "true positive / escalated",
+      "disposition_provenance": "SIMULATED analyst decision",
+      "events": [
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4732,
+          "MemberSid": "S-1-5-21-111111111-222222222-333333333-1101",
+          "SubjectUserName": "lab-operator",
+          "TargetDomainName": "Builtin",
+          "TargetSid": "S-1-5-32-544",
+          "TargetUserName": "Administrators",
+          "record_id": "D2-P1",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D2-P1"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": "INV-002",
+      "rationale": "The fixture establishes the privileged membership addition. Under the fictional owner-denial assumption, the simulated analyst escalates the unauthorized change for investigation; real compromise and account creation are not concluded.",
+      "severity": "high",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Member added to local Administrators"
+    },
+    {
+      "alert_id": "DET-002:localized-name:1",
+      "attack": [
+        {
+          "rationale": "Adding an account to a privileged local group is directly consistent with this technique, but persistence intent is not observable from one event.",
+          "tactic": "persistence",
+          "technique": "T1098.007"
+        },
+        {
+          "rationale": "The destination Administrators group grants a privileged membership; successful privilege use is not proven by the event.",
+          "tactic": "privilege_escalation",
+          "technique": "T1098.007"
+        }
+      ],
+      "case_id": "localized-name",
+      "detection_id": "DET-002",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4732,
+          "MemberSid": "S-1-5-21-111111111-222222222-333333333-1101",
+          "SubjectUserName": "lab-operator",
+          "TargetDomainName": "Builtin",
+          "TargetSid": "S-1-5-32-544",
+          "TargetUserName": "Administrateurs",
+          "record_id": "D2-P2",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D2-P2"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "high",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Member added to local Administrators"
+    },
+    {
+      "alert_id": "DET-002:approved-provisioning:1",
+      "attack": [
+        {
+          "rationale": "Adding an account to a privileged local group is directly consistent with this technique, but persistence intent is not observable from one event.",
+          "tactic": "persistence",
+          "technique": "T1098.007"
+        },
+        {
+          "rationale": "The destination Administrators group grants a privileged membership; successful privilege use is not proven by the event.",
+          "tactic": "privilege_escalation",
+          "technique": "T1098.007"
+        }
+      ],
+      "case_id": "approved-provisioning",
+      "detection_id": "DET-002",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4732,
+          "MemberSid": "S-1-5-21-111111111-222222222-333333333-1101",
+          "SubjectUserName": "lab-provisioner",
+          "TargetDomainName": "Builtin",
+          "TargetSid": "S-1-5-32-544",
+          "TargetUserName": "Administrators",
+          "record_id": "D2-F1",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D2-F1"
+      ],
+      "fixture_category": "false_positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "high",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Member added to local Administrators"
+    },
+    {
+      "alert_id": "DET-003:positive:1",
+      "attack": [
+        {
+          "rationale": "A repeated-failure pattern is a candidate brute-force signal; evidence does not establish guessing intent or distinguish password spraying across accounts.",
+          "tactic": "credential_access",
+          "technique": "T1110"
+        }
+      ],
+      "case_id": "positive",
+      "detection_id": "DET-003",
+      "disposition": "needs more information",
+      "disposition_provenance": "SIMULATED analyst decision",
+      "events": [
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P1-F1",
+          "timestamp": "2026-09-07T12:00:00Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P1-F2",
+          "timestamp": "2026-09-07T12:00:20Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P1-F3",
+          "timestamp": "2026-09-07T12:00:40Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P1-F4",
+          "timestamp": "2026-09-07T12:01:00Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P1-F5",
+          "timestamp": "2026-09-07T12:01:20Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4624,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P1-S1",
+          "timestamp": "2026-09-07T12:02:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D3-P1-F1",
+        "D3-P1-F2",
+        "D3-P1-F3",
+        "D3-P1-F4",
+        "D3-P1-F5",
+        "D3-P1-S1"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": "INV-003",
+      "rationale": "The sequence meets the implemented threshold and timing semantics. It cannot distinguish mistyped credentials from guessing, so the simulated analyst retains uncertainty pending authorization and post-logon evidence.",
+      "severity": "high",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:02:00Z",
+      "title": "Repeated authentication failures followed by success"
+    },
+    {
+      "alert_id": "DET-003:inclusive-window:1",
+      "attack": [
+        {
+          "rationale": "A repeated-failure pattern is a candidate brute-force signal; evidence does not establish guessing intent or distinguish password spraying across accounts.",
+          "tactic": "credential_access",
+          "technique": "T1110"
+        }
+      ],
+      "case_id": "inclusive-window",
+      "detection_id": "DET-003",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P2-F1",
+          "timestamp": "2026-09-07T12:00:00Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P2-F2",
+          "timestamp": "2026-09-07T12:00:20Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P2-F3",
+          "timestamp": "2026-09-07T12:00:40Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P2-F4",
+          "timestamp": "2026-09-07T12:01:00Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P2-F5",
+          "timestamp": "2026-09-07T12:01:20Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4624,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P2-S1",
+          "timestamp": "2026-09-07T12:05:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D3-P2-F1",
+        "D3-P2-F2",
+        "D3-P2-F3",
+        "D3-P2-F4",
+        "D3-P2-F5",
+        "D3-P2-S1"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "high",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:05:00Z",
+      "title": "Repeated authentication failures followed by success"
+    },
+    {
+      "alert_id": "DET-003:mistyped-password:1",
+      "attack": [
+        {
+          "rationale": "A repeated-failure pattern is a candidate brute-force signal; evidence does not establish guessing intent or distinguish password spraying across accounts.",
+          "tactic": "credential_access",
+          "technique": "T1110"
+        }
+      ],
+      "case_id": "mistyped-password",
+      "detection_id": "DET-003",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-helpdesk",
+          "record_id": "D3-F1-F1",
+          "timestamp": "2026-09-07T12:00:00Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-helpdesk",
+          "record_id": "D3-F1-F2",
+          "timestamp": "2026-09-07T12:00:20Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-helpdesk",
+          "record_id": "D3-F1-F3",
+          "timestamp": "2026-09-07T12:00:40Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-helpdesk",
+          "record_id": "D3-F1-F4",
+          "timestamp": "2026-09-07T12:01:00Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-helpdesk",
+          "record_id": "D3-F1-F5",
+          "timestamp": "2026-09-07T12:01:20Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4624,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-helpdesk",
+          "record_id": "D3-F1-S1",
+          "timestamp": "2026-09-07T12:02:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D3-F1-F1",
+        "D3-F1-F2",
+        "D3-F1-F3",
+        "D3-F1-F4",
+        "D3-F1-F5",
+        "D3-F1-S1"
+      ],
+      "fixture_category": "false_positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "high",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:02:00Z",
+      "title": "Repeated authentication failures followed by success"
+    },
+    {
+      "alert_id": "DET-003:out-of-order-input:1",
+      "attack": [
+        {
+          "rationale": "A repeated-failure pattern is a candidate brute-force signal; evidence does not establish guessing intent or distinguish password spraying across accounts.",
+          "tactic": "credential_access",
+          "technique": "T1110"
+        }
+      ],
+      "case_id": "out-of-order-input",
+      "detection_id": "DET-003",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P3-F1",
+          "timestamp": "2026-09-07T12:00:00Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P3-F2",
+          "timestamp": "2026-09-07T12:00:20Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P3-F3",
+          "timestamp": "2026-09-07T12:00:40Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P3-F4",
+          "timestamp": "2026-09-07T12:01:00Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4625,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P3-F5",
+          "timestamp": "2026-09-07T12:01:20Z"
+        },
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4624,
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3,
+          "TargetDomainName": "LAB",
+          "TargetUserName": "lab-user",
+          "record_id": "D3-P3-S1",
+          "timestamp": "2026-09-07T12:02:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D3-P3-F1",
+        "D3-P3-F2",
+        "D3-P3-F3",
+        "D3-P3-F4",
+        "D3-P3-F5",
+        "D3-P3-S1"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "high",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:02:00Z",
+      "title": "Repeated authentication failures followed by success"
+    },
+    {
+      "alert_id": "DET-004:positive:1",
+      "attack": [
+        {
+          "rationale": "The registered task action relates to Windows scheduled task execution capability; the fixture proves registration text only, not that it ran or persisted.",
+          "tactic": "execution",
+          "technique": "T1053.005"
+        }
+      ],
+      "case_id": "positive",
+      "detection_id": "DET-004",
+      "disposition": "needs more information",
+      "disposition_provenance": "SIMULATED analyst decision",
+      "events": [
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4698,
+          "SubjectUserName": "lab-operator",
+          "TaskContent": "<Task><Actions><Exec><Command>powershell.exe</Command><Arguments>-NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA</Arguments></Exec></Actions></Task>",
+          "TaskName": "\\DetectionLab\\SafeMarker",
+          "record_id": "D4-P1",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D4-P1"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": "INV-004",
+      "rationale": "The record matches action-text logic but cannot establish task execution or malicious intent. The simulated analyst requests task and change context before deciding whether escalation is justified.",
+      "severity": "high",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Scheduled task with encoded PowerShell action"
+    },
+    {
+      "alert_id": "DET-004:switch-first-xml:1",
+      "attack": [
+        {
+          "rationale": "The registered task action relates to Windows scheduled task execution capability; the fixture proves registration text only, not that it ran or persisted.",
+          "tactic": "execution",
+          "technique": "T1053.005"
+        }
+      ],
+      "case_id": "switch-first-xml",
+      "detection_id": "DET-004",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4698,
+          "SubjectUserName": "lab-operator",
+          "TaskContent": "<Task><Actions><Exec><Command>powershell.exe</Command><Arguments>-EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA</Arguments></Exec></Actions></Task>",
+          "TaskName": "\\DetectionLab\\SafeMarker",
+          "record_id": "D4-P2",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D4-P2"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "high",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Scheduled task with encoded PowerShell action"
+    },
+    {
+      "alert_id": "DET-004:approved-deployment:1",
+      "attack": [
+        {
+          "rationale": "The registered task action relates to Windows scheduled task execution capability; the fixture proves registration text only, not that it ran or persisted.",
+          "tactic": "execution",
+          "technique": "T1053.005"
+        }
+      ],
+      "case_id": "approved-deployment",
+      "detection_id": "DET-004",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "EventID": 4698,
+          "SubjectUserName": "lab-provisioner",
+          "TaskContent": "<Task><Actions><Exec><Command>powershell.exe</Command><Arguments>-NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA</Arguments></Exec></Actions></Task>",
+          "TaskName": "\\DetectionLab\\ApprovedPackage",
+          "record_id": "D4-F1",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D4-F1"
+      ],
+      "fixture_category": "false_positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "high",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Scheduled task with encoded PowerShell action"
+    },
+    {
+      "alert_id": "DET-005:positive:1",
+      "attack": [
+        {
+          "rationale": "The child process is PowerShell. The parent relationship increases review priority, but does not itself prove macros, user execution, exploitation or phishing.",
+          "tactic": "execution",
+          "technique": "T1059.001"
+        }
+      ],
+      "case_id": "positive",
+      "detection_id": "DET-005",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "CommandLine": "powershell.exe -NoProfile -Command Write-Output 'DETECTION-LAB-SAFE'",
+          "Computer": "LAB-WIN11",
+          "EventID": 1,
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+          "User": "LAB\\analyst",
+          "record_id": "D5-P1",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D5-P1"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "high",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Office application spawning PowerShell"
+    },
+    {
+      "alert_id": "DET-005:excel-parent:1",
+      "attack": [
+        {
+          "rationale": "The child process is PowerShell. The parent relationship increases review priority, but does not itself prove macros, user execution, exploitation or phishing.",
+          "tactic": "execution",
+          "technique": "T1059.001"
+        }
+      ],
+      "case_id": "excel-parent",
+      "detection_id": "DET-005",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "Computer": "LAB-WIN11",
+          "EventID": 1,
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE",
+          "User": "LAB\\analyst",
+          "record_id": "D5-P2",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D5-P2"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "high",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Office application spawning PowerShell"
+    },
+    {
+      "alert_id": "DET-005:outlook-parent:1",
+      "attack": [
+        {
+          "rationale": "The child process is PowerShell. The parent relationship increases review priority, but does not itself prove macros, user execution, exploitation or phishing.",
+          "tactic": "execution",
+          "technique": "T1059.001"
+        }
+      ],
+      "case_id": "outlook-parent",
+      "detection_id": "DET-005",
+      "disposition": "needs more information",
+      "disposition_provenance": "unreviewed fixture default",
+      "events": [
+        {
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "Computer": "LAB-WIN11",
+          "EventID": 1,
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+          "User": "LAB\\analyst",
+          "record_id": "D5-P3",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D5-P3"
+      ],
+      "fixture_category": "positive",
+      "host": "LAB-WIN11",
+      "investigation_id": null,
+      "rationale": "Matched a regression fixture; no analyst investigation supplied for this case.",
+      "severity": "high",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Office application spawning PowerShell"
+    },
+    {
+      "alert_id": "DET-005:approved-addin:1",
+      "attack": [
+        {
+          "rationale": "The child process is PowerShell. The parent relationship increases review priority, but does not itself prove macros, user execution, exploitation or phishing.",
+          "tactic": "execution",
+          "technique": "T1059.001"
+        }
+      ],
+      "case_id": "approved-addin",
+      "detection_id": "DET-005",
+      "disposition": "benign positive",
+      "disposition_provenance": "SIMULATED analyst decision",
+      "events": [
+        {
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "CommandLine": "powershell.exe -NoProfile -Command Write-Output 'APPROVED-ADDIN-LAB'",
+          "Computer": "LAB-WIN11",
+          "EventID": 1,
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+          "User": "LAB\\analyst",
+          "record_id": "D5-F1",
+          "timestamp": "2026-09-07T12:00:00Z"
+        }
+      ],
+      "evidence_refs": [
+        "D5-F1"
+      ],
+      "fixture_category": "false_positive",
+      "host": "LAB-WIN11",
+      "investigation_id": "INV-005",
+      "rationale": "The Office-to-PowerShell relationship correctly matches the behavior. Scenario approval explains the benign cause, so the alert is retained as a benign positive without broad Office or account allowlisting.",
+      "severity": "high",
+      "source": "DETERMINISTIC fixture",
+      "timestamp": "2026-09-07T12:00:00Z",
+      "title": "Office application spawning PowerShell"
+    }
+  ],
+  "evidence_manifest": "evidence/fixtures/manifest.json",
+  "fixture_validation": [
+    {
+      "actual": false,
+      "case_id": "baseline",
+      "category": "baseline",
+      "detection_id": "DET-001",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "positive",
+      "category": "positive",
+      "detection_id": "DET-001",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "mixed-case-switch",
+      "category": "positive",
+      "detection_id": "DET-001",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "short-switch",
+      "category": "positive",
+      "detection_id": "DET-001",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "near-miss",
+      "category": "near_miss",
+      "detection_id": "DET-001",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "argument-prefix",
+      "category": "near_miss",
+      "detection_id": "DET-001",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "wrong-image",
+      "category": "near_miss",
+      "detection_id": "DET-001",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "approved-automation",
+      "category": "false_positive",
+      "detection_id": "DET-001",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "other-parent",
+      "category": "positive",
+      "detection_id": "DET-001",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "other-user",
+      "category": "positive",
+      "detection_id": "DET-001",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "changed-payload",
+      "category": "positive",
+      "detection_id": "DET-001",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "appended-argument",
+      "category": "positive",
+      "detection_id": "DET-001",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "wrong-channel",
+      "category": "malformed",
+      "detection_id": "DET-001",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "base64-case-change",
+      "category": "positive",
+      "detection_id": "DET-001",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "trailing-newline",
+      "category": "positive",
+      "detection_id": "DET-001",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "malformed",
+      "category": "malformed",
+      "detection_id": "DET-001",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "baseline",
+      "category": "baseline",
+      "detection_id": "DET-002",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "positive",
+      "category": "positive",
+      "detection_id": "DET-002",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "localized-name",
+      "category": "positive",
+      "detection_id": "DET-002",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "near-miss",
+      "category": "near_miss",
+      "detection_id": "DET-002",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "approved-provisioning",
+      "category": "false_positive",
+      "detection_id": "DET-002",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "malformed",
+      "category": "malformed",
+      "detection_id": "DET-002",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "baseline",
+      "category": "baseline",
+      "detection_id": "DET-003",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "positive",
+      "category": "positive",
+      "detection_id": "DET-003",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "threshold-near-miss",
+      "category": "near_miss",
+      "detection_id": "DET-003",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "inclusive-window",
+      "category": "positive",
+      "detection_id": "DET-003",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "outside-window",
+      "category": "near_miss",
+      "detection_id": "DET-003",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "mistyped-password",
+      "category": "false_positive",
+      "detection_id": "DET-003",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "different-computer",
+      "category": "near_miss",
+      "detection_id": "DET-003",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "different-targetusername",
+      "category": "near_miss",
+      "detection_id": "DET-003",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "different-targetdomainname",
+      "category": "near_miss",
+      "detection_id": "DET-003",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "different-ipaddress",
+      "category": "near_miss",
+      "detection_id": "DET-003",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "success-before-failures",
+      "category": "near_miss",
+      "detection_id": "DET-003",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "out-of-order-input",
+      "category": "positive",
+      "detection_id": "DET-003",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "same-timestamp",
+      "category": "near_miss",
+      "detection_id": "DET-003",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "success-resets-history",
+      "category": "near_miss",
+      "detection_id": "DET-003",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "malformed",
+      "category": "malformed",
+      "detection_id": "DET-003",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "baseline",
+      "category": "baseline",
+      "detection_id": "DET-004",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "positive",
+      "category": "positive",
+      "detection_id": "DET-004",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "switch-first-xml",
+      "category": "positive",
+      "detection_id": "DET-004",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "near-miss",
+      "category": "near_miss",
+      "detection_id": "DET-004",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "approved-deployment",
+      "category": "false_positive",
+      "detection_id": "DET-004",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "malformed",
+      "category": "malformed",
+      "detection_id": "DET-004",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "baseline",
+      "category": "baseline",
+      "detection_id": "DET-005",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "positive",
+      "category": "positive",
+      "detection_id": "DET-005",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "excel-parent",
+      "category": "positive",
+      "detection_id": "DET-005",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "outlook-parent",
+      "category": "positive",
+      "detection_id": "DET-005",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "near-miss",
+      "category": "near_miss",
+      "detection_id": "DET-005",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "parent-name-suffix",
+      "category": "near_miss",
+      "detection_id": "DET-005",
+      "expected": false,
+      "passed": true
+    },
+    {
+      "actual": true,
+      "case_id": "approved-addin",
+      "category": "false_positive",
+      "detection_id": "DET-005",
+      "expected": true,
+      "passed": true
+    },
+    {
+      "actual": false,
+      "case_id": "malformed",
+      "category": "malformed",
+      "detection_id": "DET-005",
+      "expected": false,
+      "passed": true
+    }
+  ],
+  "investigations": [
+    {
+      "case_id": "approved-automation",
+      "context": {
+        "command_line": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+        "expected": "Expected in this fictional recurring lab automation scenario.",
+        "host": "LAB-WIN11",
+        "parent_process": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "process": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "related_activity": "Contributing fixture record IDs: D1-F1. No surrounding live events were collected.",
+        "timestamp": "2026-09-07T12:00:00Z",
+        "user": "LAB\\automation",
+        "what": "Known safe automation ran encoded PowerShell."
+      },
+      "detection_id": "DET-001",
+      "disposition": "false positive",
+      "evidence_refs": [
+        "D1-F1"
+      ],
+      "id": "INV-001",
+      "inferences": [
+        "This is expected automation only because the scenario explicitly supplies approval context; a process event alone cannot establish approval.",
+        "Parent path and user are conditions for this lab exception, not proof that an account or executable is trustworthy."
+      ],
+      "next_steps": [
+        "Preserve the original record and before rule in the tuning record.",
+        "Apply only the exact-command, parent and user exception, and rerun positive and negative fixtures.",
+        "Reopen the exception if command, identity, parent or operating context changes."
+      ],
+      "observations": [
+        "D1-F1 records a Sysmon process-create shape with PowerShell parent, LAB\\automation user and the exact encoded command.",
+        "Base64 decodes as UTF-16LE to the literal harmless text Write-Output 'DETECTION-LAB-SAFE'; decoding is analysis, not execution.",
+        "The historical before rule matches this event; the current tuned rule is expected to suppress it."
+      ],
+      "provenance": {
+        "analyst_decision": "simulated",
+        "real_incident": false,
+        "telemetry": "deterministic"
+      },
+      "rationale": "The initial broad rule produced noise for a fully specified approved command. The simulated analyst classifies the alert as false positive against the intended unapproved-context hypothesis and requests a narrow exception; no malicious behavior is asserted.",
+      "scenario_assumptions": [
+        "Fictional change LAB-CHANGE-001 approves one recurring safe-marker command run by LAB\\automation under the stated PowerShell parent.",
+        "The change record and owner confirmation are invented scenario context, not a real enterprise approval.",
+        "This investigation refers to the before-rule alert; after tuning it is not counted as a current alert."
+      ]
+    },
+    {
+      "case_id": "positive",
+      "context": {
+        "command_line": "Not present in this fixture.",
+        "expected": "Unapproved according to the explicitly simulated owner response.",
+        "host": "LAB-WIN11",
+        "parent_process": "Not present in this fixture.",
+        "process": "Not present in this fixture.",
+        "related_activity": "Contributing fixture record IDs: D2-P1. No surrounding live events were collected.",
+        "timestamp": "2026-09-07T12:00:00Z",
+        "user": "lab-operator",
+        "what": "A member SID was added to local Administrators."
+      },
+      "detection_id": "DET-002",
+      "disposition": "true positive / escalated",
+      "evidence_refs": [
+        "D2-P1"
+      ],
+      "id": "INV-002",
+      "inferences": [
+        "Membership confers access potential; whether the member used privileges is unknown.",
+        "No account creation may be inferred from this single 4732 event.",
+        "The unauthorized classification depends on simulated owner context, not an event field."
+      ],
+      "next_steps": [
+        "Preserve the 4732 record and request authorized SID-resolution context.",
+        "Request the relevant change record, 4720 if creation is suspected, and later 4624/4672/process evidence.",
+        "Route to the fictional endpoint/security owner for authorization review; any membership reversal requires a real approved response process."
+      ],
+      "observations": [
+        "D2-P1 is Security 4732 on LAB-WIN11 at 12:00:00Z.",
+        "SubjectUserName lab-operator performed the addition of MemberSid S-1-5-21-111111111-222222222-333333333-1101 to TargetSid S-1-5-32-544.",
+        "The record contains no process, command line, account-creation event or subsequent privilege-use evidence."
+      ],
+      "provenance": {
+        "analyst_decision": "simulated",
+        "real_incident": false,
+        "telemetry": "deterministic"
+      },
+      "rationale": "The fixture establishes the privileged membership addition. Under the fictional owner-denial assumption, the simulated analyst escalates the unauthorized change for investigation; real compromise and account creation are not concluded.",
+      "scenario_assumptions": [
+        "Fictional endpoint owner states that the membership addition was not approved.",
+        "The escalation is a tabletop action only; no real ticket is sent and no account or group is changed."
+      ]
+    },
+    {
+      "case_id": "positive",
+      "context": {
+        "command_line": "Not present in this fixture.",
+        "expected": "Unknown; no actual owner confirmation or change record exists.",
+        "host": "LAB-WIN11",
+        "parent_process": "Not present in this fixture.",
+        "process": "Not present in this fixture.",
+        "related_activity": "Contributing fixture record IDs: D3-P1-F1, D3-P1-F2, D3-P1-F3, D3-P1-F4, D3-P1-F5, D3-P1-S1. No surrounding live events were collected.",
+        "timestamp": "2026-09-07T12:02:00Z",
+        "user": "LAB\\lab-user",
+        "what": "Five authentication failures were followed by a successful logon for the same correlation key."
+      },
+      "detection_id": "DET-003",
+      "disposition": "needs more information",
+      "evidence_refs": [
+        "D3-P1-F1",
+        "D3-P1-F2",
+        "D3-P1-F3",
+        "D3-P1-F4",
+        "D3-P1-F5",
+        "D3-P1-S1"
+      ],
+      "id": "INV-003",
+      "inferences": [
+        "A matching source IP does not prove the same person generated failures and success.",
+        "Both password mistypes and password guessing can produce this pattern.",
+        "The data does not support a confirmed compromise, MFA bypass, spraying or Valid Accounts claim."
+      ],
+      "next_steps": [
+        "Confirm expected login behavior with the account owner in a real authorized investigation.",
+        "Collect failure reasons, authentication package, endpoint session context and any available identity-provider telemetry.",
+        "Escalate if authorization is denied or independent post-logon evidence supports abuse; otherwise document benign cause."
+      ],
+      "observations": [
+        "D3-P1-F1 through D3-P1-F5 are five 4625 events from 12:00:00Z through 12:01:20Z.",
+        "D3-P1-S1 is a 4624 success at 12:02:00Z; all six records share LAB-WIN11, LAB, lab-user and 192.0.2.10.",
+        "The time from first failure to success is 120 seconds and every failure strictly precedes success.",
+        "No originating process, parent command line or post-authentication behavior is present."
+      ],
+      "provenance": {
+        "analyst_decision": "simulated",
+        "real_incident": false,
+        "telemetry": "deterministic"
+      },
+      "rationale": "The sequence meets the implemented threshold and timing semantics. It cannot distinguish mistyped credentials from guessing, so the simulated analyst retains uncertainty pending authorization and post-logon evidence.",
+      "scenario_assumptions": [
+        "No fictional owner statement is supplied for this case; uncertainty is intentional.",
+        "192.0.2.10 is a documentation address and was not contacted."
+      ]
+    },
+    {
+      "case_id": "positive",
+      "context": {
+        "command_line": "Task action captured in TaskContent; see source fixture.",
+        "expected": "Unknown without task owner, principal and change context.",
+        "host": "LAB-WIN11",
+        "parent_process": "Not present in this fixture.",
+        "process": "Not present in this fixture.",
+        "related_activity": "Contributing fixture record IDs: D4-P1. No surrounding live events were collected.",
+        "timestamp": "2026-09-07T12:00:00Z",
+        "user": "lab-operator",
+        "what": "A task registration contains an encoded PowerShell action."
+      },
+      "detection_id": "DET-004",
+      "disposition": "needs more information",
+      "evidence_refs": [
+        "D4-P1"
+      ],
+      "id": "INV-004",
+      "inferences": [
+        "Registration stores an action; it is not proof that the action ran.",
+        "The scheduled-task ATT&CK association is an analytic hypothesis and does not establish persistence."
+      ],
+      "next_steps": [
+        "Preserve TaskContent as text and inspect the full task definition without registering or executing it.",
+        "Request owner/change authorization, trigger/principal details and task scheduler or process execution evidence.",
+        "Choose benign positive for confirmed approved activity or escalate owner-denied suspicious registration with corroborating evidence."
+      ],
+      "observations": [
+        "D4-P1 is a Security 4698-shaped record by lab-operator for \\DetectionLab\\SafeMarker.",
+        "TaskContent includes powershell.exe and an encoded-command argument for a harmless output marker.",
+        "The fixture does not include task triggers, run-as principal, task scheduler history or a launched process."
+      ],
+      "provenance": {
+        "analyst_decision": "simulated",
+        "real_incident": false,
+        "telemetry": "deterministic"
+      },
+      "rationale": "The record matches action-text logic but cannot establish task execution or malicious intent. The simulated analyst requests task and change context before deciding whether escalation is justified.",
+      "scenario_assumptions": [
+        "The task record is hand-authored; no scheduled task was created on the host."
+      ]
+    },
+    {
+      "case_id": "approved-addin",
+      "context": {
+        "command_line": "powershell.exe -NoProfile -Command Write-Output 'APPROVED-ADDIN-LAB'",
+        "expected": "Expected according to the explicitly simulated add-in approval.",
+        "host": "LAB-WIN11",
+        "parent_process": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+        "process": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "related_activity": "Contributing fixture record IDs: D5-F1. No surrounding live events were collected.",
+        "timestamp": "2026-09-07T12:00:00Z",
+        "user": "LAB\\analyst",
+        "what": "An approved fictional Office add-in launched a PowerShell helper."
+      },
+      "detection_id": "DET-005",
+      "disposition": "benign positive",
+      "evidence_refs": [
+        "D5-F1"
+      ],
+      "id": "INV-005",
+      "inferences": [
+        "The fixture cannot establish macro execution, phishing or a malicious document.",
+        "Expected use depends on fictional package authorization; the parent executable name alone is insufficient."
+      ],
+      "next_steps": [
+        "In a real investigation, collect signed add-in/package identity and owner approval before closure.",
+        "Retain the behavioral alert and benign-positive reason for future baseline decisions.",
+        "Reopen if payload, parent lineage or package identity changes."
+      ],
+      "observations": [
+        "D5-F1 records WINWORD.EXE as ParentImage and powershell.exe as Image on LAB-WIN11 for LAB\\analyst.",
+        "CommandLine only prints APPROVED-ADDIN-LAB.",
+        "No document path, add-in signature, ProcessGuid or real parent event is supplied."
+      ],
+      "provenance": {
+        "analyst_decision": "simulated",
+        "real_incident": false,
+        "telemetry": "deterministic"
+      },
+      "rationale": "The Office-to-PowerShell relationship correctly matches the behavior. Scenario approval explains the benign cause, so the alert is retained as a benign positive without broad Office or account allowlisting.",
+      "scenario_assumptions": [
+        "Fictional change LAB-CHANGE-002 approves this exact add-in helper behavior.",
+        "No Office automation or macro was run; lineage and approval are simulated."
+      ]
+    },
+    {
+      "case_id": "positive",
+      "context": {
+        "command_line": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+        "expected": "Expected as the deliberately selected demonstration signal.",
+        "host": "LAB-WIN11",
+        "parent_process": "C:\\Windows\\explorer.exe",
+        "process": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "related_activity": "Contributing fixture record IDs: D1-P1. No surrounding live events were collected.",
+        "timestamp": "2026-09-07T12:00:00Z",
+        "user": "LAB\\analyst",
+        "what": "An interactive lab user launched encoded PowerShell to print a harmless marker."
+      },
+      "detection_id": "DET-001",
+      "disposition": "benign positive",
+      "evidence_refs": [
+        "D1-P1"
+      ],
+      "id": "INV-006",
+      "inferences": [
+        "Encoded command usage is observed; attacker intent is not.",
+        "This intentional lab match should not be labeled a real security incident."
+      ],
+      "next_steps": [
+        "Show this alert during the offline demo and read its exact original command and lineage.",
+        "Compare it with INV-001 to explain why tuning approval is scoped to recurring automation."
+      ],
+      "observations": [
+        "D1-P1 records LAB\\analyst, explorer.exe parent, powershell.exe child and the encoded safe marker.",
+        "The payload decodes to Write-Output 'DETECTION-LAB-SAFE'.",
+        "The event does not meet the approved parent/user exception and remains a match after tuning."
+      ],
+      "provenance": {
+        "analyst_decision": "simulated",
+        "real_incident": false,
+        "telemetry": "deterministic"
+      },
+      "rationale": "The behavioral signal correctly matches outside the narrowly approved recurring automation exception. The harmless decoded content and explicit fixture purpose justify a simulated benign-positive disposition while preserving the alert.",
+      "scenario_assumptions": [
+        "This is a fictional interactive test record; it is not a captured execution event."
+      ]
+    }
+  ],
+  "metrics": {
+    "alert_dispositions": {
+      "benign positive": 2,
+      "needs more information": 20,
+      "true positive / escalated": 1
+    },
+    "alerts_in_regression_fixture_set": 23,
+    "detections": 5,
+    "detections_by_attack_tactic": {
+      "credential_access": 1,
+      "execution": 3,
+      "persistence": 1,
+      "privilege_escalation": 1
+    },
+    "detections_with_positive_and_negative_fixtures": 5,
+    "detections_with_triage": 5,
+    "detections_with_validated_tuning": 1,
+    "fixture_cases": 51,
+    "fixture_checks_passed": 51,
+    "investigation_dispositions_including_historical": {
+      "benign positive": 2,
+      "false positive": 1,
+      "needs more information": 2,
+      "true positive / escalated": 1
+    },
+    "investigations": 6,
+    "live_captures": 0,
+    "malformed_cases": 6,
+    "negative_cases": 28,
+    "positive_cases": 23,
+    "sigma_rules": 6
+  },
+  "metrics_note": "Counts describe this authored regression fixture set, not population precision/recall, SOC throughput, MTTD or MTTR. Historical tuning investigations can refer to alerts suppressed by the current rule.",
+  "schema_version": 1,
+  "scope": "DETERMINISTIC offline detection and evidence; SIMULATED analyst dispositions. No captured live telemetry or real incident response.",
+  "tuning": {
+    "after_matches": 9,
+    "after_rule": "sigma-rules/windows_powershell_encoded.yml",
+    "before_matches": 10,
+    "before_rule": "evidence/tuning/DET-001-before.yml",
+    "cases": [
+      {
+        "after": false,
+        "before": false,
+        "case_id": "baseline",
+        "category": "baseline",
+        "expected_after": false
+      },
+      {
+        "after": true,
+        "before": true,
+        "case_id": "positive",
+        "category": "positive",
+        "expected_after": true
+      },
+      {
+        "after": true,
+        "before": true,
+        "case_id": "mixed-case-switch",
+        "category": "positive",
+        "expected_after": true
+      },
+      {
+        "after": true,
+        "before": true,
+        "case_id": "short-switch",
+        "category": "positive",
+        "expected_after": true
+      },
+      {
+        "after": false,
+        "before": false,
+        "case_id": "near-miss",
+        "category": "near_miss",
+        "expected_after": false
+      },
+      {
+        "after": false,
+        "before": false,
+        "case_id": "argument-prefix",
+        "category": "near_miss",
+        "expected_after": false
+      },
+      {
+        "after": false,
+        "before": false,
+        "case_id": "wrong-image",
+        "category": "near_miss",
+        "expected_after": false
+      },
+      {
+        "after": false,
+        "before": true,
+        "case_id": "approved-automation",
+        "category": "false_positive",
+        "expected_after": false
+      },
+      {
+        "after": true,
+        "before": true,
+        "case_id": "other-parent",
+        "category": "positive",
+        "expected_after": true
+      },
+      {
+        "after": true,
+        "before": true,
+        "case_id": "other-user",
+        "category": "positive",
+        "expected_after": true
+      },
+      {
+        "after": true,
+        "before": true,
+        "case_id": "changed-payload",
+        "category": "positive",
+        "expected_after": true
+      },
+      {
+        "after": true,
+        "before": true,
+        "case_id": "appended-argument",
+        "category": "positive",
+        "expected_after": true
+      },
+      {
+        "after": false,
+        "before": false,
+        "case_id": "wrong-channel",
+        "category": "malformed",
+        "expected_after": false
+      },
+      {
+        "after": true,
+        "before": true,
+        "case_id": "base64-case-change",
+        "category": "positive",
+        "expected_after": true
+      },
+      {
+        "after": true,
+        "before": true,
+        "case_id": "trailing-newline",
+        "category": "positive",
+        "expected_after": true
+      },
+      {
+        "after": false,
+        "before": false,
+        "case_id": "malformed",
+        "category": "malformed",
+        "expected_after": false
+      }
+    ],
+    "detection_id": "DET-001",
+    "positive_regressions": 0,
+    "removed_noise_cases": 1,
+    "risk": "An exact approved command/parent/user allowlist can hide abuse of that approved context; reassess ownership and expiry before deployment.",
+    "status": "validated against listed fixtures only"
+  }
+}

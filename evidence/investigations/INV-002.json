@@ -1,0 +1,45 @@
+{
+  "id": "INV-002",
+  "detection_id": "DET-002",
+  "case_id": "positive",
+  "disposition": "true positive / escalated",
+  "rationale": "The fixture establishes the privileged membership addition. Under the fictional owner-denial assumption, the simulated analyst escalates the unauthorized change for investigation; real compromise and account creation are not concluded.",
+  "evidence_refs": [
+    "D2-P1"
+  ],
+  "observations": [
+    "D2-P1 is Security 4732 on LAB-WIN11 at 12:00:00Z.",
+    "SubjectUserName lab-operator performed the addition of MemberSid S-1-5-21-111111111-222222222-333333333-1101 to TargetSid S-1-5-32-544.",
+    "The record contains no process, command line, account-creation event or subsequent privilege-use evidence."
+  ],
+  "inferences": [
+    "Membership confers access potential; whether the member used privileges is unknown.",
+    "No account creation may be inferred from this single 4732 event.",
+    "The unauthorized classification depends on simulated owner context, not an event field."
+  ],
+  "next_steps": [
+    "Preserve the 4732 record and request authorized SID-resolution context.",
+    "Request the relevant change record, 4720 if creation is suspected, and later 4624/4672/process evidence.",
+    "Route to the fictional endpoint/security owner for authorization review; any membership reversal requires a real approved response process."
+  ],
+  "context": {
+    "what": "A member SID was added to local Administrators.",
+    "user": "lab-operator",
+    "host": "LAB-WIN11",
+    "process": "Not present in this fixture.",
+    "parent_process": "Not present in this fixture.",
+    "command_line": "Not present in this fixture.",
+    "timestamp": "2026-09-07T12:00:00Z",
+    "related_activity": "Contributing fixture record IDs: D2-P1. No surrounding live events were collected.",
+    "expected": "Unapproved according to the explicitly simulated owner response."
+  },
+  "provenance": {
+    "telemetry": "deterministic",
+    "analyst_decision": "simulated",
+    "real_incident": false
+  },
+  "scenario_assumptions": [
+    "Fictional endpoint owner states that the membership addition was not approved.",
+    "The escalation is a tabletop action only; no real ticket is sent and no account or group is changed."
+  ]
+}

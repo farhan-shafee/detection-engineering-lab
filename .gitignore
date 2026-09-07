@@ -9,3 +9,22 @@ __pycache__/
 
 # OS
 .DS_Store
+
+# Local infrastructure, secrets and unsanitized evidence
+.local/
+.lab/
+.ruff_cache/
+.pytest_cache/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.evtx
+evidence/live/raw/
+evidence/live/private/
+build/
+dist/
+*.egg-info/

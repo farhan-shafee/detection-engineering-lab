@@ -1,0 +1,131 @@
+{
+  "detection_id": "DET-002",
+  "provenance": {
+    "type": "deterministic",
+    "created": "2026-09-07",
+    "environment": "Fictional LAB hosts and users; RFC 5737 documentation IP addresses",
+    "source": "Hand-authored normalized event fixtures; not exported Windows events",
+    "schema_version": "1.0.0"
+  },
+  "cases": [
+    {
+      "id": "baseline",
+      "category": "baseline",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D2-B1",
+          "EventID": 4732,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetSid": "S-1-5-32-545",
+          "MemberSid": "S-1-5-21-111111111-222222222-333333333-1101",
+          "SubjectUserName": "lab-operator",
+          "TargetUserName": "Users",
+          "TargetDomainName": "Builtin"
+        }
+      ],
+      "description": "Addition to ordinary Users group."
+    },
+    {
+      "id": "positive",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D2-P1",
+          "EventID": 4732,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetSid": "S-1-5-32-544",
+          "MemberSid": "S-1-5-21-111111111-222222222-333333333-1101",
+          "SubjectUserName": "lab-operator",
+          "TargetUserName": "Administrators",
+          "TargetDomainName": "Builtin"
+        }
+      ],
+      "description": "Synthetic local Administrators membership addition with no account-creation event."
+    },
+    {
+      "id": "localized-name",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D2-P2",
+          "EventID": 4732,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetSid": "S-1-5-32-544",
+          "MemberSid": "S-1-5-21-111111111-222222222-333333333-1101",
+          "SubjectUserName": "lab-operator",
+          "TargetUserName": "Administrateurs",
+          "TargetDomainName": "Builtin"
+        }
+      ],
+      "description": "Well-known SID matches irrespective of localized group name."
+    },
+    {
+      "id": "near-miss",
+      "category": "near_miss",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D2-N1",
+          "EventID": 4732,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetSid": "S-1-5-32-1544",
+          "MemberSid": "S-1-5-21-111111111-222222222-333333333-1101",
+          "SubjectUserName": "lab-operator",
+          "TargetUserName": "Administrators",
+          "TargetDomainName": "Builtin"
+        }
+      ],
+      "description": "SID containing the same digits is not the Administrators SID."
+    },
+    {
+      "id": "approved-provisioning",
+      "category": "false_positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D2-F1",
+          "EventID": 4732,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetSid": "S-1-5-32-544",
+          "MemberSid": "S-1-5-21-111111111-222222222-333333333-1101",
+          "SubjectUserName": "lab-provisioner",
+          "TargetUserName": "Administrators",
+          "TargetDomainName": "Builtin"
+        }
+      ],
+      "description": "Approved fictional build change still matches; analyst records benign positive instead of broad actor suppression."
+    },
+    {
+      "id": "malformed",
+      "category": "malformed",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D2-M1",
+          "EventID": 4732,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetSid": "S-1-5-32-544",
+          "SubjectUserName": "lab-operator",
+          "TargetUserName": "Administrators",
+          "TargetDomainName": "Builtin"
+        }
+      ],
+      "description": "Missing member identity is rejected by the canonical event contract."
+    }
+  ]
+}

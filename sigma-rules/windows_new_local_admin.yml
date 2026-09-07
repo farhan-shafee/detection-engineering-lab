@@ -1,28 +1,31 @@
-title: Windows New Local Admin User
+title: Member Added to Local Administrators
 id: 3609d45e-b42a-4ce5-9ca5-5f4ee214fe0d
 status: experimental
-description: Detects creation of a local account and addition to local administrators.
+description: Detects a group membership addition using the well-known Administrators SID; does not detect account creation.
+author: Detection Engineering Lab
+date: 2026-09-07
+license: MIT
 references:
-  - https://attack.mitre.org/techniques/T1136/001/
-author: Portfolio Lab
-date: 2026-04-29
+    - https://attack.mitre.org/techniques/T1098/007/
+    - https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4732
 logsource:
-  product: windows
-  service: security
+    product: windows
+    service: security
 detection:
-  create_user:
-    EventID: 4720
-  add_admin_group:
-    EventID: 4732
-    TargetUserName|contains: Administrators
-  condition: create_user and add_admin_group
+    selection:
+        EventID: 4732
+        Channel: 'Security'
+        TargetSid: 'S-1-5-32-544'
+    condition: selection
 fields:
-  - TargetUserName
-  - SubjectUserName
-  - Computer
+    - Computer
+    - SubjectUserName
+    - MemberSid
+    - TargetSid
 falsepositives:
-  - Authorized endpoint provisioning tasks.
+    - Approved provisioning or break-glass membership changes.
 level: high
 tags:
-  - attack.persistence
-  - attack.t1136.001
+    - attack.persistence
+    - attack.privilege_escalation
+    - attack.t1098.007

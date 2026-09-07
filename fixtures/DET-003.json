@@ -1,0 +1,1061 @@
+{
+  "detection_id": "DET-003",
+  "provenance": {
+    "type": "deterministic",
+    "created": "2026-09-07",
+    "environment": "Fictional LAB hosts and users; RFC 5737 documentation IP addresses",
+    "source": "Hand-authored normalized event fixtures; not exported Windows events",
+    "schema_version": "1.0.0"
+  },
+  "cases": [
+    {
+      "id": "baseline",
+      "category": "baseline",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:02:00Z",
+          "record_id": "D3-B1",
+          "EventID": 4624,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        }
+      ],
+      "description": "One successful logon with no preceding failure series."
+    },
+    {
+      "id": "positive",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D3-P1-F1",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:20Z",
+          "record_id": "D3-P1-F2",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:40Z",
+          "record_id": "D3-P1-F3",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:00Z",
+          "record_id": "D3-P1-F4",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:20Z",
+          "record_id": "D3-P1-F5",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:02:00Z",
+          "record_id": "D3-P1-S1",
+          "EventID": 4624,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        }
+      ],
+      "description": "Five failures followed by a success in two minutes on the same four-field identity key."
+    },
+    {
+      "id": "threshold-near-miss",
+      "category": "near_miss",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D3-N1-F1",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:20Z",
+          "record_id": "D3-N1-F2",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:40Z",
+          "record_id": "D3-N1-F3",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:00Z",
+          "record_id": "D3-N1-F4",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:02:00Z",
+          "record_id": "D3-N1-S1",
+          "EventID": 4624,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        }
+      ],
+      "description": "Four failures do not meet the threshold."
+    },
+    {
+      "id": "inclusive-window",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D3-P2-F1",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:20Z",
+          "record_id": "D3-P2-F2",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:40Z",
+          "record_id": "D3-P2-F3",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:00Z",
+          "record_id": "D3-P2-F4",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:20Z",
+          "record_id": "D3-P2-F5",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:05:00Z",
+          "record_id": "D3-P2-S1",
+          "EventID": 4624,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        }
+      ],
+      "description": "Oldest of five failures exactly 300 seconds before success is included."
+    },
+    {
+      "id": "outside-window",
+      "category": "near_miss",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D3-N2-F1",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:20Z",
+          "record_id": "D3-N2-F2",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:40Z",
+          "record_id": "D3-N2-F3",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:00Z",
+          "record_id": "D3-N2-F4",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:20Z",
+          "record_id": "D3-N2-F5",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:05:01Z",
+          "record_id": "D3-N2-S1",
+          "EventID": 4624,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        }
+      ],
+      "description": "Oldest failure is 301 seconds old, leaving only four in the window."
+    },
+    {
+      "id": "mistyped-password",
+      "category": "false_positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D3-F1-F1",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-helpdesk",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:20Z",
+          "record_id": "D3-F1-F2",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-helpdesk",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:40Z",
+          "record_id": "D3-F1-F3",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-helpdesk",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:00Z",
+          "record_id": "D3-F1-F4",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-helpdesk",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:20Z",
+          "record_id": "D3-F1-F5",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-helpdesk",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:02:00Z",
+          "record_id": "D3-F1-S1",
+          "EventID": 4624,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-helpdesk",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        }
+      ],
+      "description": "Fictional user confirms repeated mistypes followed by legitimate success; an alert is not an incident verdict."
+    },
+    {
+      "id": "different-computer",
+      "category": "near_miss",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D3-N-HOST-F1",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:20Z",
+          "record_id": "D3-N-HOST-F2",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:40Z",
+          "record_id": "D3-N-HOST-F3",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:00Z",
+          "record_id": "D3-N-HOST-F4",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:20Z",
+          "record_id": "D3-N-HOST-F5",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:02:00Z",
+          "record_id": "D3-N-HOST-S1",
+          "EventID": 4624,
+          "Channel": "Security",
+          "Computer": "LAB-WIN12",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        }
+      ],
+      "description": "Success with a different Computer cannot complete the sequence."
+    },
+    {
+      "id": "different-targetusername",
+      "category": "near_miss",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D3-N-USER-F1",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:20Z",
+          "record_id": "D3-N-USER-F2",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:40Z",
+          "record_id": "D3-N-USER-F3",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:00Z",
+          "record_id": "D3-N-USER-F4",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:20Z",
+          "record_id": "D3-N-USER-F5",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:02:00Z",
+          "record_id": "D3-N-USER-S1",
+          "EventID": 4624,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "other-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        }
+      ],
+      "description": "Success with a different TargetUserName cannot complete the sequence."
+    },
+    {
+      "id": "different-targetdomainname",
+      "category": "near_miss",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D3-N-DOMAIN-F1",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:20Z",
+          "record_id": "D3-N-DOMAIN-F2",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:40Z",
+          "record_id": "D3-N-DOMAIN-F3",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:00Z",
+          "record_id": "D3-N-DOMAIN-F4",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:20Z",
+          "record_id": "D3-N-DOMAIN-F5",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:02:00Z",
+          "record_id": "D3-N-DOMAIN-S1",
+          "EventID": 4624,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "OTHERLAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        }
+      ],
+      "description": "Success with a different TargetDomainName cannot complete the sequence."
+    },
+    {
+      "id": "different-ipaddress",
+      "category": "near_miss",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D3-N-IP-F1",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:20Z",
+          "record_id": "D3-N-IP-F2",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:40Z",
+          "record_id": "D3-N-IP-F3",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:00Z",
+          "record_id": "D3-N-IP-F4",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:20Z",
+          "record_id": "D3-N-IP-F5",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:02:00Z",
+          "record_id": "D3-N-IP-S1",
+          "EventID": 4624,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.11",
+          "LogonType": 3
+        }
+      ],
+      "description": "Success with a different IpAddress cannot complete the sequence."
+    },
+    {
+      "id": "success-before-failures",
+      "category": "near_miss",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D3-N-ORDER-F1",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:20Z",
+          "record_id": "D3-N-ORDER-F2",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:40Z",
+          "record_id": "D3-N-ORDER-F3",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:00Z",
+          "record_id": "D3-N-ORDER-F4",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:20Z",
+          "record_id": "D3-N-ORDER-F5",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T11:59:59Z",
+          "record_id": "D3-N-ORDER-S1",
+          "EventID": 4624,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        }
+      ],
+      "description": "Earlier success cannot match failures that occurred later."
+    },
+    {
+      "id": "out-of-order-input",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:02:00Z",
+          "record_id": "D3-P3-S1",
+          "EventID": 4624,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:20Z",
+          "record_id": "D3-P3-F5",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:00Z",
+          "record_id": "D3-P3-F4",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:40Z",
+          "record_id": "D3-P3-F3",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:20Z",
+          "record_id": "D3-P3-F2",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D3-P3-F1",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        }
+      ],
+      "description": "Input order is normalized by event timestamp; same evidence produces the same result."
+    },
+    {
+      "id": "same-timestamp",
+      "category": "near_miss",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D3-N-TIE-F1",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:20Z",
+          "record_id": "D3-N-TIE-F2",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:40Z",
+          "record_id": "D3-N-TIE-F3",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:00Z",
+          "record_id": "D3-N-TIE-F4",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:20Z",
+          "record_id": "D3-N-TIE-F5",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:20Z",
+          "record_id": "D3-N-TIE-S1",
+          "EventID": 4624,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        }
+      ],
+      "description": "Only four failures strictly precede success; equal-timestamp event order is not known."
+    },
+    {
+      "id": "success-resets-history",
+      "category": "near_miss",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D3-N-RESET-F1",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:20Z",
+          "record_id": "D3-N-RESET-F2",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:40Z",
+          "record_id": "D3-N-RESET-F3",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:00Z",
+          "record_id": "D3-N-RESET-F4",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:10Z",
+          "record_id": "D3-N-RESET-S1",
+          "EventID": 4624,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:30Z",
+          "record_id": "D3-N-RESET-F5",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:40Z",
+          "record_id": "D3-N-RESET-S2",
+          "EventID": 4624,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "IpAddress": "192.0.2.10",
+          "LogonType": 3
+        }
+      ],
+      "description": "An intervening successful authentication clears previous failures before a new episode."
+    },
+    {
+      "id": "malformed",
+      "category": "malformed",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D3-M1-F1",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:20Z",
+          "record_id": "D3-M1-F2",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:00:40Z",
+          "record_id": "D3-M1-F3",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:00Z",
+          "record_id": "D3-M1-F4",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:01:20Z",
+          "record_id": "D3-M1-F5",
+          "EventID": 4625,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "LogonType": 3
+        },
+        {
+          "timestamp": "2026-09-07T12:02:00Z",
+          "record_id": "D3-M1-S1",
+          "EventID": 4624,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TargetUserName": "lab-user",
+          "TargetDomainName": "LAB",
+          "LogonType": 3
+        }
+      ],
+      "description": "Missing source identity must not collapse unrelated authentication into a shared key."
+    }
+  ]
+}

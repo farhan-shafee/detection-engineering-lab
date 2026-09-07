@@ -1,0 +1,19 @@
+[project]
+name = "detection-engineering-lab"
+version = "1.0.0"
+description = "Deterministic Windows detection and analyst workflow portfolio lab"
+requires-python = ">=3.11"
+# pySigma 1.x requires unpatched diskcache (CVE-2025-69872). This parser-only
+# lab uses the compatible 0.11.23 release and independently validates its subset.
+dependencies = ["PyYAML==6.0.3", "pySigma==0.11.23"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+extend-exclude = [".lab", ".local", ".venv", "evidence/live/private"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.format]
+line-ending = "lf"

@@ -1,0 +1,8 @@
+# Direct dependencies pinned; transitive dependencies are resolved and audited in CI.
+# Verified against the maintainers' PyPI release pages on 2026-09-07.
+PyYAML==6.0.3
+# Newer pySigma requires unpatched diskcache; see pyproject.toml and SECURITY.md.
+pySigma==0.11.23
+ruff==0.16.6
+bandit==1.9.4
+pip-audit==2.10.1

@@ -1,0 +1,30 @@
+title: Scheduled Task with Encoded PowerShell Action
+id: 2c60b6e0-ed78-49e2-a3d8-c4c6bd0e1586
+status: experimental
+description: Detects task registration telemetry containing PowerShell and an encoded switch; does not prove task execution.
+author: Detection Engineering Lab
+date: 2026-09-07
+license: MIT
+references:
+    - https://attack.mitre.org/techniques/T1053/005/
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4698
+        Channel: 'Security'
+        TaskContent|contains: 'powershell'
+        TaskContent|re: '(?i)(?:^|[\s>])-(?:enc|encodedcommand)(?:\s|$)'
+    condition: selection
+fields:
+    - Computer
+    - SubjectUserName
+    - TaskName
+    - TaskContent
+falsepositives:
+    - Approved task-based software deployment.
+level: high
+tags:
+    - attack.execution
+    - attack.t1053.005

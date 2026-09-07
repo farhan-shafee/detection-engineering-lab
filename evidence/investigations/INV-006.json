@@ -1,0 +1,42 @@
+{
+  "id": "INV-006",
+  "detection_id": "DET-001",
+  "case_id": "positive",
+  "disposition": "benign positive",
+  "rationale": "The behavioral signal correctly matches outside the narrowly approved recurring automation exception. The harmless decoded content and explicit fixture purpose justify a simulated benign-positive disposition while preserving the alert.",
+  "evidence_refs": [
+    "D1-P1"
+  ],
+  "observations": [
+    "D1-P1 records LAB\\analyst, explorer.exe parent, powershell.exe child and the encoded safe marker.",
+    "The payload decodes to Write-Output 'DETECTION-LAB-SAFE'.",
+    "The event does not meet the approved parent/user exception and remains a match after tuning."
+  ],
+  "inferences": [
+    "Encoded command usage is observed; attacker intent is not.",
+    "This intentional lab match should not be labeled a real security incident."
+  ],
+  "next_steps": [
+    "Show this alert during the offline demo and read its exact original command and lineage.",
+    "Compare it with INV-001 to explain why tuning approval is scoped to recurring automation."
+  ],
+  "context": {
+    "what": "An interactive lab user launched encoded PowerShell to print a harmless marker.",
+    "user": "LAB\\analyst",
+    "host": "LAB-WIN11",
+    "process": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "parent_process": "C:\\Windows\\explorer.exe",
+    "command_line": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+    "timestamp": "2026-09-07T12:00:00Z",
+    "related_activity": "Contributing fixture record IDs: D1-P1. No surrounding live events were collected.",
+    "expected": "Expected as the deliberately selected demonstration signal."
+  },
+  "provenance": {
+    "telemetry": "deterministic",
+    "analyst_decision": "simulated",
+    "real_incident": false
+  },
+  "scenario_assumptions": [
+    "This is a fictional interactive test record; it is not a captured execution event."
+  ]
+}

@@ -1,0 +1,38 @@
+title: Office Application Spawning PowerShell
+id: 8d0e31cb-836b-485e-bbed-3de57a96d820
+status: experimental
+description: Detects Office parent to PowerShell child process relationships for analyst review; macro execution is not inferred.
+author: Detection Engineering Lab
+date: 2026-09-07
+license: MIT
+references:
+    - https://attack.mitre.org/techniques/T1059/001/
+logsource:
+    product: windows
+    service: sysmon
+    category: process_creation
+    definition: Sysmon Event ID 1 with full command line and parent image.
+detection:
+    selection:
+        EventID: 1
+        Channel: 'Microsoft-Windows-Sysmon/Operational'
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        ParentImage|endswith:
+            - '\winword.exe'
+            - '\excel.exe'
+            - '\outlook.exe'
+    condition: selection
+fields:
+    - Computer
+    - User
+    - Image
+    - ParentImage
+    - CommandLine
+falsepositives:
+    - Approved Office add-ins or document automation.
+level: high
+tags:
+    - attack.execution
+    - attack.t1059.001

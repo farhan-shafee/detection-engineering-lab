@@ -1,0 +1,377 @@
+[
+  {
+    "id": "DET-001",
+    "title": "Encoded PowerShell process requiring review",
+    "status": "experimental",
+    "owner": "Detection Engineering Lab maintainer",
+    "version": "1.1.0",
+    "description": "Review encoded PowerShell command-line usage with a narrow, fixture-proven lab automation exception.",
+    "purpose": "Identify a reviewable PowerShell execution signal while showing how investigated automation noise informs controlled tuning.",
+    "hypothesis": "An encoded command from an unapproved context merits review because command content is hidden from a casual command-line reading. Encoding alone does not establish maliciousness.",
+    "logsource": {
+      "product": "windows",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "requirement": "Optional Sysmon installed and configured to record process creation including full CommandLine, ParentImage and User."
+    },
+    "event_ids": [
+      1
+    ],
+    "attack": [
+      {
+        "technique": "T1059.001",
+        "tactic": "execution",
+        "rationale": "PowerShell process execution directly supports an execution behavior association; benign fixtures demonstrate matching only, not malicious technique execution."
+      }
+    ],
+    "severity": "medium",
+    "logic": "Valid Sysmon Event ID 1, Image ends with \\powershell.exe or \\pwsh.exe, and CommandLine contains the whitespace-delimited -enc or -encodedcommand switch (case insensitive). Exclude only the exact case-sensitive safe encoded command together with approved parent image and LAB\\automation user. The Sigma file supplies matching predicates.",
+    "sigma": [
+      "sigma-rules/windows_powershell_encoded.yml"
+    ],
+    "fixtures": "fixtures/DET-001.json",
+    "wazuh": {
+      "kind": "custom_rule",
+      "rule_ids": [
+        110001
+      ],
+      "limitations": [
+        "Experimental candidate; not verified against a running Wazuh manager or captured events.",
+        "Native win.eventdata field casing and channel decoding must be confirmed in the deployed version.",
+        "The Wazuh candidate implements the initial signal; the offline scoped automation exception is intentionally not ported. Do not claim identical before/after alert counts."
+      ]
+    },
+    "false_positives": [
+      "Packaging and remote-management tools legitimately encode PowerShell arguments.",
+      "A harmless interactive test is a positive behavioral match with benign intent."
+    ],
+    "tuning": [
+      "The before rule matched the exact known lab marker under approved automation; INV-001 records simulated authorization context.",
+      "The after rule suppresses only whole CommandLine plus parent plus user; base64 payload comparison is case sensitive.",
+      "Changed user, parent, payload, base64 case, appended argument and trailing newline remain regression positives.",
+      "A scoped exception is a policy choice, not a trust boundary: review expiry, command content, identity ownership and protected binary paths before using in production."
+    ],
+    "triage": [
+      "Read the original record and confirm channel, host, user, child image, parent image and complete command line.",
+      "Extract the encoded argument and decode as UTF-16LE text without executing it; retain the original string for evidence.",
+      "Compare decoded content and parent/user combination with an approved change record; do not treat the rule match as an incident verdict.",
+      "Request process ancestry, script-block telemetry if enabled, binary signatures and related endpoint/network events when purpose is unknown."
+    ],
+    "escalation": [
+      "Escalate for investigation if content or context is unexplained, the initiating identity denies the action, or independent telemetry corroborates abuse.",
+      "Any actual containment needs a verified incident process; this demo does not execute response actions."
+    ],
+    "limitations": [
+      "Only explicitly supported -enc and -encodedcommand switch forms are covered; alternate abbreviations and in-process PowerShell are outside scope.",
+      "Sysmon must exist and retain full fields. Security 4688 and PowerShell 4104 are supplementary context, not interchangeable fixture inputs.",
+      "Payload text is not decoded by the detector, and the process name alone does not authenticate the executable.",
+      "The case-sensitive regex filter and canonical field names need backend-specific translation testing."
+    ],
+    "benign_test": "The local safe generator can print DETECTION-LAB-SAFE through encoded PowerShell. The deterministic positive fixture uses a fictional analyst context and remains a match. The approved automation fixture is separately synthetic.",
+    "validation": "Run python -m detection_lab validate and python -m detection_lab demo. Fixtures cover positive, baseline, boundary near miss, known noise, changed-context regression and malformed records. evidence/tuning/DET-001-before.yml preserves initial logic.",
+    "documentation": "detections/execution/suspicious_powershell_encoded.md",
+    "references": [
+      "https://attack.mitre.org/techniques/T1059/001/",
+      "https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon"
+    ]
+  },
+  {
+    "id": "DET-002",
+    "title": "Member added to local Administrators",
+    "status": "experimental",
+    "owner": "Detection Engineering Lab maintainer",
+    "version": "2.0.0",
+    "description": "Detect an Administrators group membership addition using its well-known SID.",
+    "purpose": "Make a privileged membership change visible for authorization review without inventing account-creation evidence.",
+    "hypothesis": "An unexpected addition to local Administrators can grant elevated access; authorization and subsequent activity determine whether to escalate.",
+    "logsource": {
+      "product": "windows",
+      "channel": "Security",
+      "requirement": "Audit Security Group Management success auditing enabled; access to Security Event ID 4732 with TargetSid, MemberSid and SubjectUserName."
+    },
+    "event_ids": [
+      4732
+    ],
+    "attack": [
+      {
+        "technique": "T1098.007",
+        "tactic": "persistence",
+        "rationale": "Adding an account to a privileged local group is directly consistent with this technique, but persistence intent is not observable from one event."
+      },
+      {
+        "technique": "T1098.007",
+        "tactic": "privilege_escalation",
+        "rationale": "The destination Administrators group grants a privileged membership; successful privilege use is not proven by the event."
+      }
+    ],
+    "severity": "high",
+    "logic": "Valid Security Event ID 4732 whose TargetSid equals S-1-5-32-544 exactly. Group names may be localized. SubjectUserName is the actor; MemberSid is the account added; TargetSid identifies the group. No 4720 account creation is required or inferred.",
+    "sigma": [
+      "sigma-rules/windows_new_local_admin.yml"
+    ],
+    "fixtures": "fixtures/DET-002.json",
+    "wazuh": {
+      "kind": "custom_rule",
+      "rule_ids": [
+        110002
+      ],
+      "limitations": [
+        "Experimental candidate; not verified against a running Wazuh manager or captured events.",
+        "Native win.eventdata field casing and channel decoding must be confirmed in the deployed version.",
+        "This is a single-event membership signal, not an account-creation or 4720-to-4732 sequence rule."
+      ]
+    },
+    "false_positives": [
+      "Authorized endpoint provisioning and managed administrator assignment.",
+      "Approved, time-bounded support or emergency access."
+    ],
+    "tuning": [
+      "Use scoped host, actor, member and change-window context after confirming approval; avoid blanket suppressions for Administrators.",
+      "Use the group SID to avoid localized-name drift.",
+      "Retain membership change evidence even when alert routing is suppressed."
+    ],
+    "triage": [
+      "Identify the actor SubjectUserName, destination TargetSid, member MemberSid, host and time from the original event.",
+      "Resolve MemberSid using authorized directory/local account context; never confuse group TargetUserName with the new member.",
+      "Check the approved change record and expected privilege duration with the endpoint owner.",
+      "Request 4720 only if investigating account creation, 4733 for membership removal, and related 4624/4672 or process events for later privilege use."
+    ],
+    "escalation": [
+      "Escalate an unapproved privileged membership change or unexplained member/actor identity to the designated owner.",
+      "Recommend reversible removal only after authorization and evidence preservation; no live accounts are altered by this demo."
+    ],
+    "limitations": [
+      "One 4732 event cannot prove a new account was created, malicious persistence occurred, or the added member used privileges.",
+      "Missing audit policy or event loss creates coverage gaps.",
+      "Domain-group membership events and other privileged local group SIDs are outside this narrowly scoped rule."
+    ],
+    "benign_test": "Use the deterministic 4732 fixtures. The default safe generator does not create accounts or modify local Administrators membership.",
+    "validation": "Positive and localized-name fixtures match; ordinary Users membership, a similar SID and missing MemberSid do not. INV-002 is a simulated escalation backed by fictional 4732 evidence.",
+    "documentation": "detections/persistence/new_local_admin_user.md",
+    "references": [
+      "https://attack.mitre.org/techniques/T1098/007/",
+      "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4732"
+    ]
+  },
+  {
+    "id": "DET-003",
+    "title": "Repeated authentication failures followed by success",
+    "status": "experimental",
+    "owner": "Detection Engineering Lab maintainer",
+    "version": "2.0.0",
+    "description": "Correlate a bounded episode of failed logons and a later success on the same destination, account domain, account and source address.",
+    "purpose": "Demonstrate sequence engineering, identity grouping, threshold boundaries and careful authentication triage.",
+    "hypothesis": "Five failed logons followed by a success in five minutes may justify investigating password guessing; mistypes and stored credentials can produce the same sequence.",
+    "logsource": {
+      "product": "windows",
+      "channel": "Security",
+      "requirement": "Audit Logon success and failure enabled. Security 4625 and 4624 require Computer, TargetUserName, TargetDomainName, IpAddress and timezone-aware timestamp."
+    },
+    "event_ids": [
+      4625,
+      4624
+    ],
+    "attack": [
+      {
+        "technique": "T1110",
+        "tactic": "credential_access",
+        "rationale": "A repeated-failure pattern is a candidate brute-force signal; evidence does not establish guessing intent or distinguish password spraying across accounts."
+      }
+    ],
+    "severity": "high",
+    "logic": "Deduplicate by Computer + Channel + record_id, sort by timestamp, and group by Computer + TargetUserName + TargetDomainName + IpAddress. A success (4624) alerts if at least five failures (4625) are strictly earlier and no more than 300 seconds old (inclusive). Every success clears that group failure history. Equal-timestamp ordering is insufficient. Each fixture case is evaluated as a separate episode.",
+    "sigma": [
+      "sigma-rules/windows_authentication_failure.yml",
+      "sigma-rules/windows_authentication_success.yml"
+    ],
+    "fixtures": "fixtures/DET-003.json",
+    "wazuh": {
+      "kind": "mapping_only",
+      "rule_ids": [],
+      "limitations": [
+        "Experimental candidate; not verified against a running Wazuh manager or captured events.",
+        "Native win.eventdata field casing and channel decoding must be confirmed in the deployed version.",
+        "No deployed Wazuh sequence implementation is claimed. Use the documented field mapping and explicit Python correlation offline.",
+        "The two Sigma components select event types only; neither represents the complete analytic. A native correlation translation needs separate ordering, cardinality, grouping and window validation."
+      ]
+    },
+    "false_positives": [
+      "A user repeatedly mistypes a password before a legitimate success.",
+      "An application retries an outdated credential before a valid session is established.",
+      "Shared source addresses can make actor attribution ambiguous even when the grouping key matches."
+    ],
+    "tuning": [
+      "Keep host and account domain in the key to prevent cross-system or same-name account mixing.",
+      "Tune thresholds only after observing authentication type, service context, lockout policy and true baseline.",
+      "Investigate common benign episodes with disposition context; do not remove every login by a known source."
+    ],
+    "triage": [
+      "Read the five contributing failures and later success; verify record identities, exact elapsed time, source IP and all grouping fields.",
+      "Review LogonType, authentication package and failure status/substatus when captured; those fields inform triage but are not predicates in this lab.",
+      "Confirm with the account owner whether the successful logon and failure series were expected; check password reset and service changes.",
+      "Request follow-on session/process activity, endpoint history and identity-provider evidence when available; preserve uncertainty if evidence is absent."
+    ],
+    "escalation": [
+      "Escalate if the successful logon is denied by its owner, targets a critical identity, or is corroborated by abnormal post-authentication behavior.",
+      "Keep needs more information when the sequence is real in the dataset but authorization and actor intent remain unknown."
+    ],
+    "limitations": [
+      "Deterministic correlation operates on supplied records and timestamps; no watermark, ingestion-delay budget or distributed state store exists.",
+      "Only valid IP addresses are accepted; local logons with a dash or absent IpAddress are excluded.",
+      "A source IP is not a reliable human identity, and same-IP grouping does not prove the failures and success had the same actor.",
+      "This per-account analytic does not establish password spraying, successful compromise or Valid Accounts technique use."
+    ],
+    "benign_test": "Use fixtures only. Do not induce account lockouts, submit password guesses, or contact authentication services for this demonstration.",
+    "validation": "Fixture suite covers threshold4/5, inclusive300/excluded301 seconds, group-key separation, earlier/equal success, out-of-order input, reset after success, benign retries and missing source identity.",
+    "documentation": "detections/credential_access/brute_force_success.md",
+    "references": [
+      "https://attack.mitre.org/techniques/T1110/",
+      "https://sigmahq.io/sigma-specification/specification/sigma-correlation-rules-specification.html"
+    ]
+  },
+  {
+    "id": "DET-004",
+    "title": "Scheduled task with encoded PowerShell action",
+    "status": "experimental",
+    "owner": "Detection Engineering Lab maintainer",
+    "version": "1.0.0",
+    "description": "Review a registered scheduled task whose stored action text contains PowerShell and an encoded command switch.",
+    "purpose": "Show task-registration triage from action content without creating persistent behavior on the demonstration host.",
+    "hypothesis": "A scheduled task configured to invoke encoded PowerShell is a useful review signal; task registration alone does not prove execution or malicious persistence.",
+    "logsource": {
+      "product": "windows",
+      "channel": "Security",
+      "requirement": "Audit Other Object Access Events success auditing enabled; Security 4698 includes TaskName, TaskContent and SubjectUserName."
+    },
+    "event_ids": [
+      4698
+    ],
+    "attack": [
+      {
+        "technique": "T1053.005",
+        "tactic": "execution",
+        "rationale": "The registered task action relates to Windows scheduled task execution capability; the fixture proves registration text only, not that it ran or persisted."
+      }
+    ],
+    "severity": "high",
+    "logic": "Valid Security Event ID 4698 with TaskContent containing powershell and a -enc or -encodedcommand switch. The switch must be preceded by beginning of text, whitespace or XML closing angle bracket, and followed by whitespace or end of text. Both predicates inspect the same captured TaskContent string.",
+    "sigma": [
+      "sigma-rules/windows_scheduled_task_encoded.yml"
+    ],
+    "fixtures": "fixtures/DET-004.json",
+    "wazuh": {
+      "kind": "custom_rule",
+      "rule_ids": [
+        110005
+      ],
+      "limitations": [
+        "Experimental candidate; not verified against a running Wazuh manager or captured events.",
+        "Native win.eventdata field casing and channel decoding must be confirmed in the deployed version.",
+        "Raw TaskContent XML escaping and field availability must be verified with actual 4698 decoder output."
+      ]
+    },
+    "false_positives": [
+      "Approved software deployment tasks use encoded PowerShell to avoid quoting errors.",
+      "Administrator-created diagnostics tasks can exhibit the same action text."
+    ],
+    "tuning": [
+      "Review full task action, principal, trigger and change record before approving a scoped task exception.",
+      "Do not allowlist every task under a familiar folder name.",
+      "Preserve original XML and compare task content changes across registrations."
+    ],
+    "triage": [
+      "Read TaskName, SubjectUserName, host, timestamp and the original TaskContent.",
+      "Extract actions, arguments, run-as principal and triggers as text without executing the task or any decoded payload.",
+      "Confirm owner and maintenance/change authorization; distinguish task creation from actual launch.",
+      "Request task scheduler operational history, subsequent process events and task update/deletion events if live data exists."
+    ],
+    "escalation": [
+      "Escalate an unexplained task principal or action, an owner-denied registration, or independent evidence of harmful execution.",
+      "Do not assert persistence or execute/delete a real task based only on this fixture-driven signal."
+    ],
+    "limitations": [
+      "The detector matches raw content substrings rather than parsing XML action structure; PowerShell and the switch could occur in different text nodes.",
+      "Only 4698 creation is covered; task updates and alternate interpreters are not.",
+      "Task registration does not prove task execution, account compromise or attacker intent."
+    ],
+    "benign_test": "Use deterministic task XML fixtures that encode a harmless Write-Output marker. No task is registered by the offline demo or default safe generator.",
+    "validation": "Encoded action and a switch immediately following the Arguments opening tag match; ordinary PowerShell and non-PowerShell tasks do not; missing TaskContent is rejected.",
+    "documentation": "detections/execution/scheduled_task_encoded.md",
+    "references": [
+      "https://attack.mitre.org/techniques/T1053/005/",
+      "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4698"
+    ]
+  },
+  {
+    "id": "DET-005",
+    "title": "Office application spawning PowerShell",
+    "status": "experimental",
+    "owner": "Detection Engineering Lab maintainer",
+    "version": "1.0.0",
+    "description": "Review a PowerShell process whose recorded parent is Word, Excel or Outlook.",
+    "purpose": "Demonstrate process-lineage investigation with clearly stated visibility limits and approved automation context.",
+    "hypothesis": "Office applications do not normally need PowerShell for ordinary document viewing; a recorded Office-to-PowerShell relationship warrants checking the initiating document or add-in.",
+    "logsource": {
+      "product": "windows",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "requirement": "Optional Sysmon process creation Event ID 1 includes full Image, ParentImage, CommandLine and User."
+    },
+    "event_ids": [
+      1
+    ],
+    "attack": [
+      {
+        "technique": "T1059.001",
+        "tactic": "execution",
+        "rationale": "The child process is PowerShell. The parent relationship increases review priority, but does not itself prove macros, user execution, exploitation or phishing."
+      }
+    ],
+    "severity": "high",
+    "logic": "Valid Sysmon Event ID 1 with Image ending in \\powershell.exe or \\pwsh.exe and ParentImage ending in \\winword.exe, \\excel.exe or \\outlook.exe (case insensitive). Command content is collected for triage; encoding is not required.",
+    "sigma": [
+      "sigma-rules/windows_office_powershell_child.yml"
+    ],
+    "fixtures": "fixtures/DET-005.json",
+    "wazuh": {
+      "kind": "custom_rule",
+      "rule_ids": [
+        110006
+      ],
+      "limitations": [
+        "Experimental candidate; not verified against a running Wazuh manager or captured events.",
+        "Native win.eventdata field casing and channel decoding must be confirmed in the deployed version.",
+        "An encoded child can also match DET-001. Correlate shared event/process identity during triage instead of counting overlap as two incidents."
+      ]
+    },
+    "false_positives": [
+      "A documented Office add-in or line-of-business workflow invokes PowerShell.",
+      "An approved local document automation tool launches a helper process."
+    ],
+    "tuning": [
+      "Request signed add-in/package and owner context before a narrow exception; retain parent-child evidence.",
+      "Do not broadly exclude Office, PowerShell, a user account, or a folder path.",
+      "Review DET-001 overlap and merge related alerts at the investigation layer."
+    ],
+    "triage": [
+      "Confirm parent and child paths, command line, user, host and timestamp from the original event.",
+      "Request parent/child ProcessGuid and ancestor records when available; compare executable signatures and package provenance.",
+      "Identify the document or add-in involved using authorized endpoint context; document absence when the fixture does not contain it.",
+      "Check the decoded command if encoding is present, related network/file activity and owner confirmation before setting disposition."
+    ],
+    "escalation": [
+      "Escalate an unknown document or add-in combined with owner denial or corroborating abnormal process/content evidence.",
+      "Use benign positive only when approval is documented; preserve needs more information if document or initiating context is unavailable."
+    ],
+    "limitations": [
+      "Executable names and parent metadata do not authenticate binaries or establish a specific document, macro, exploit or email source.",
+      "Missing parent telemetry and unrecorded ancestry create blind spots.",
+      "Office lineage is synthetic in this lab; no macro or executable attachment is generated."
+    ],
+    "benign_test": "Use fictional Office parent records and a child command that only writes a harmless marker. The lab does not fabricate a live parent-child chain.",
+    "validation": "Word, Excel and Outlook positives; ordinary Explorer parent, wrong child image, deceptive parent-name suffix and missing parent are covered. INV-005 records a simulated benign-positive add-in disposition.",
+    "documentation": "detections/execution/office_powershell_child.md",
+    "references": [
+      "https://attack.mitre.org/techniques/T1059/001/",
+      "https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon"
+    ]
+  }
+]

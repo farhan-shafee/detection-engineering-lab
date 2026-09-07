@@ -1,0 +1,110 @@
+{
+  "id": "TUNE-001",
+  "detection_id": "DET-001",
+  "before_rule": "evidence/tuning/DET-001-before.yml",
+  "after_rule": "sigma-rules/windows_powershell_encoded.yml",
+  "fixture": "fixtures/DET-001.json",
+  "investigation_id": "INV-001",
+  "reason": "The initial rule generated known automation noise for one exact harmless marker in explicitly approved fictional context.",
+  "change": "Add an AND filter for case-sensitive whole CommandLine, exact Windows PowerShell parent path and LAB\\automation user. Use regex whole-string anchors and explicit case-sensitive scope because base64 case changes alter decoded bytes.",
+  "validation_cases": [
+    {
+      "case_id": "baseline",
+      "before_expected": false,
+      "after_expected": false
+    },
+    {
+      "case_id": "positive",
+      "before_expected": true,
+      "after_expected": true
+    },
+    {
+      "case_id": "mixed-case-switch",
+      "before_expected": true,
+      "after_expected": true
+    },
+    {
+      "case_id": "short-switch",
+      "before_expected": true,
+      "after_expected": true
+    },
+    {
+      "case_id": "near-miss",
+      "before_expected": false,
+      "after_expected": false
+    },
+    {
+      "case_id": "argument-prefix",
+      "before_expected": false,
+      "after_expected": false
+    },
+    {
+      "case_id": "wrong-image",
+      "before_expected": false,
+      "after_expected": false
+    },
+    {
+      "case_id": "approved-automation",
+      "before_expected": true,
+      "after_expected": false
+    },
+    {
+      "case_id": "other-parent",
+      "before_expected": true,
+      "after_expected": true
+    },
+    {
+      "case_id": "other-user",
+      "before_expected": true,
+      "after_expected": true
+    },
+    {
+      "case_id": "changed-payload",
+      "before_expected": true,
+      "after_expected": true
+    },
+    {
+      "case_id": "appended-argument",
+      "before_expected": true,
+      "after_expected": true
+    },
+    {
+      "case_id": "wrong-channel",
+      "before_expected": false,
+      "after_expected": false
+    },
+    {
+      "case_id": "base64-case-change",
+      "before_expected": true,
+      "after_expected": true
+    },
+    {
+      "case_id": "trailing-newline",
+      "before_expected": true,
+      "after_expected": true
+    },
+    {
+      "case_id": "malformed",
+      "before_expected": false,
+      "after_expected": false
+    }
+  ],
+  "limitations": [
+    "Small hand-authored regression sample, not an estimated production false-positive rate.",
+    "No Wazuh runtime tuning or real SOC noise collection is claimed.",
+    "Identity and parent fields can be untrustworthy in compromised environments; this lab exception requires independent approval and periodic review."
+  ],
+  "approval_context": {
+    "type": "simulated",
+    "change_id": "LAB-CHANGE-001",
+    "approved_by": "Fictional lab owner",
+    "review_date": "2026-10-07",
+    "expiry_action": "Revalidate the exact command, parent, owner and user; remove the exception if the approval no longer applies."
+  },
+  "provenance": {
+    "telemetry": "deterministic",
+    "analyst_decision": "simulated"
+  },
+  "before_version": "1.0.0",
+  "after_version": "1.1.0"
+}

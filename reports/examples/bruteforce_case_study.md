@@ -1,27 +1,7 @@
-# Alert Investigation Example: Brute Force Success After Failures
+# Authentication sequence investigation
 
-## Alert context
+The current worked case is [INV-003](../../evidence/investigations/INV-003.json), generated in [the demo report](../demo.md). Its deterministic positive fixture contains five 4625 failures followed by one 4624 success within 120 seconds for the same host, domain, account and documentation-range source IP.
 
-- Rule: `Windows Brute Force Success After Failures`
-- Severity: High
-- Host: `wkstn-014`
-- User: `jdoe`
+**Observation:** the implemented sequence threshold is met. **Inference:** guessing is one possible explanation; mistyped credentials remain plausible. **SIMULATED disposition:** needs more information. Owner confirmation, failure reasons and post-logon activity would determine whether to escalate.
 
-## Analyst workflow
-
-1. Confirm failed logon burst from same IP.
-2. Verify immediate successful logon.
-3. Check whether IP appears for other users in same timeframe.
-4. Review endpoint telemetry for post-authentication process execution.
-5. Escalate if suspicious behavior follows authentication.
-
-## Example finding
-
-Observed 6 failed authentications followed by success from uncommon external source IP. User reported no login attempt at that time.
-
-## Outcome
-
-- Account password reset.
-- Sessions revoked.
-- Source IP blocked at perimeter controls.
-- Case escalated for threat hunt across identity logs.
+No real user was interviewed, no credentials were reset, no sessions were revoked and no source was blocked. The legacy two-record sample cannot support the older report's six-failure claim.

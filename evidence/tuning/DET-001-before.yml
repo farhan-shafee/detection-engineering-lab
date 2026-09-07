@@ -20,11 +20,7 @@ detection:
             - '\powershell.exe'
             - '\pwsh.exe'
         CommandLine|re: '(?i)(?:^|\s)-(?:enc|encodedcommand)(?:\s|$)'
-    filter:
-        CommandLine|re: '\A(?-i:powershell\.exe\ \-NoProfile\ \-EncodedCommand\ VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA)\Z'
-        ParentImage: 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
-        User: 'LAB\automation'
-    condition: selection and not filter
+    condition: selection
 fields:
     - Computer
     - User

@@ -1,0 +1,119 @@
+{
+  "detection_id": "DET-004",
+  "provenance": {
+    "type": "deterministic",
+    "created": "2026-09-07",
+    "environment": "Fictional LAB hosts and users; RFC 5737 documentation IP addresses",
+    "source": "Hand-authored normalized event fixtures; not exported Windows events",
+    "schema_version": "1.0.0"
+  },
+  "cases": [
+    {
+      "id": "baseline",
+      "category": "baseline",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D4-B1",
+          "EventID": 4698,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TaskName": "\\DetectionLab\\SafeMarker",
+          "TaskContent": "<Task><Actions><Exec><Command>notepad.exe</Command></Exec></Actions></Task>",
+          "SubjectUserName": "lab-operator"
+        }
+      ],
+      "description": "A task action without PowerShell."
+    },
+    {
+      "id": "positive",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D4-P1",
+          "EventID": 4698,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TaskName": "\\DetectionLab\\SafeMarker",
+          "TaskContent": "<Task><Actions><Exec><Command>powershell.exe</Command><Arguments>-NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA</Arguments></Exec></Actions></Task>",
+          "SubjectUserName": "lab-operator"
+        }
+      ],
+      "description": "Task XML contains an encoded PowerShell action that only prints a harmless marker; fixture only."
+    },
+    {
+      "id": "switch-first-xml",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D4-P2",
+          "EventID": 4698,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TaskName": "\\DetectionLab\\SafeMarker",
+          "TaskContent": "<Task><Actions><Exec><Command>powershell.exe</Command><Arguments>-EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA</Arguments></Exec></Actions></Task>",
+          "SubjectUserName": "lab-operator"
+        }
+      ],
+      "description": "Encoded switch immediately follows the Arguments XML opening tag."
+    },
+    {
+      "id": "near-miss",
+      "category": "near_miss",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D4-N1",
+          "EventID": 4698,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TaskName": "\\DetectionLab\\SafeMarker",
+          "TaskContent": "<Task><Actions><Exec><Command>powershell.exe</Command><Arguments>-Command Get-Date</Arguments></Exec></Actions></Task>",
+          "SubjectUserName": "lab-operator"
+        }
+      ],
+      "description": "PowerShell task without an encoded-command switch."
+    },
+    {
+      "id": "approved-deployment",
+      "category": "false_positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D4-F1",
+          "EventID": 4698,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TaskName": "\\DetectionLab\\ApprovedPackage",
+          "TaskContent": "<Task><Actions><Exec><Command>powershell.exe</Command><Arguments>-NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA</Arguments></Exec></Actions></Task>",
+          "SubjectUserName": "lab-provisioner"
+        }
+      ],
+      "description": "An approved fictional software package task still matches and requires authorization context."
+    },
+    {
+      "id": "malformed",
+      "category": "malformed",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D4-M1",
+          "EventID": 4698,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "TaskName": "\\DetectionLab\\SafeMarker",
+          "SubjectUserName": "lab-operator"
+        }
+      ],
+      "description": "Missing task content cannot establish action content."
+    }
+  ]
+}

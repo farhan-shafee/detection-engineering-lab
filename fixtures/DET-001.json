@@ -1,0 +1,315 @@
+{
+  "detection_id": "DET-001",
+  "provenance": {
+    "type": "deterministic",
+    "created": "2026-09-07",
+    "environment": "Fictional LAB hosts and users; RFC 5737 documentation IP addresses",
+    "source": "Hand-authored normalized event fixtures; not exported Windows events",
+    "schema_version": "1.0.0"
+  },
+  "cases": [
+    {
+      "id": "baseline",
+      "category": "baseline",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D1-B1",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\explorer.exe",
+          "CommandLine": "powershell.exe -NoProfile -Command Get-Date",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "Ordinary interactive PowerShell without an encoded switch."
+    },
+    {
+      "id": "positive",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D1-P1",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\explorer.exe",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "Harmless marker encoded under interactive analyst context; match demonstrates signal, not maliciousness."
+    },
+    {
+      "id": "mixed-case-switch",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D1-P2",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\explorer.exe",
+          "CommandLine": "powershell.exe -EnCoDeDcOmMaNd VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "Case-insensitive switch and process matching."
+    },
+    {
+      "id": "short-switch",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D1-P3",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\explorer.exe",
+          "CommandLine": "powershell.exe -enc VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "Explicit short switch is in scope."
+    },
+    {
+      "id": "near-miss",
+      "category": "near_miss",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D1-N1",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\explorer.exe",
+          "CommandLine": "powershell.exe -NoProfile -Command \"Write-Output encoding\"",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "The word encoding is not an encoded-command switch."
+    },
+    {
+      "id": "argument-prefix",
+      "category": "near_miss",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D1-N2",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\explorer.exe",
+          "CommandLine": "powershell.exe -encoder test",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "Token boundary rejects a longer unrelated argument name."
+    },
+    {
+      "id": "wrong-image",
+      "category": "near_miss",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D1-N3",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\cmd.exe",
+          "ParentImage": "C:\\Windows\\explorer.exe",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "An encoded-looking argument on another executable is outside scope."
+    },
+    {
+      "id": "approved-automation",
+      "category": "false_positive",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D1-F1",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "User": "LAB\\automation"
+        }
+      ],
+      "description": "Before rule alerted; simulated investigation approved only this exact harmless command plus parent and user; tuned rule suppresses it."
+    },
+    {
+      "id": "other-parent",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D1-P4",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "User": "LAB\\automation"
+        }
+      ],
+      "description": "Same marker and approved account with Office parent remains visible."
+    },
+    {
+      "id": "other-user",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D1-P5",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "Same marker and parent under a different account remains visible."
+    },
+    {
+      "id": "changed-payload",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D1-P6",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBSAEUAVgBJAEUAVwAnAA==",
+          "User": "LAB\\automation"
+        }
+      ],
+      "description": "A different harmless payload is not covered by the exception."
+    },
+    {
+      "id": "appended-argument",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D1-P7",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA -NoLogo",
+          "User": "LAB\\automation"
+        }
+      ],
+      "description": "An appended argument prevents exact command-line suppression."
+    },
+    {
+      "id": "wrong-channel",
+      "category": "malformed",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D1-N4",
+          "EventID": 1,
+          "Channel": "Security",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\explorer.exe",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "A Sysmon-style field shape in the wrong channel is not accepted."
+    },
+    {
+      "id": "base64-case-change",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D1-P-base64-case-change",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand vwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "User": "LAB\\automation"
+        }
+      ],
+      "description": "Base64 is case sensitive: changed payload casing must not inherit the safe-command exception."
+    },
+    {
+      "id": "trailing-newline",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D1-P-trailing-newline",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA\n",
+          "User": "LAB\\automation"
+        }
+      ],
+      "description": "Whole-string anchors ensure an added trailing newline does not inherit the exception."
+    },
+    {
+      "id": "malformed",
+      "category": "malformed",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D1-M1",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\explorer.exe",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "Missing mandatory command line cannot match."
+    }
+  ]
+}

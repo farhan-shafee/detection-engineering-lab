@@ -1,0 +1,163 @@
+{
+  "detection_id": "DET-005",
+  "provenance": {
+    "type": "deterministic",
+    "created": "2026-09-07",
+    "environment": "Fictional LAB hosts and users; RFC 5737 documentation IP addresses",
+    "source": "Hand-authored normalized event fixtures; not exported Windows events",
+    "schema_version": "1.0.0"
+  },
+  "cases": [
+    {
+      "id": "baseline",
+      "category": "baseline",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D5-B1",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Windows\\explorer.exe",
+          "CommandLine": "powershell.exe -Command Get-Date",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "Explorer parent invoking PowerShell is outside this parent-child hypothesis."
+    },
+    {
+      "id": "positive",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D5-P1",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+          "CommandLine": "powershell.exe -NoProfile -Command Write-Output 'DETECTION-LAB-SAFE'",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "Office to PowerShell lineage is synthetic; command only prints a marker."
+    },
+    {
+      "id": "excel-parent",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D5-P2",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "Excel parent is in scope."
+    },
+    {
+      "id": "outlook-parent",
+      "category": "positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D5-P3",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "Outlook parent is in scope."
+    },
+    {
+      "id": "near-miss",
+      "category": "near_miss",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D5-N1",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\notepad.exe",
+          "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+          "CommandLine": "notepad.exe",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "Office child that is not PowerShell."
+    },
+    {
+      "id": "parent-name-suffix",
+      "category": "near_miss",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D5-N2",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\notwinword.exe",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "Similar parent executable name must not match."
+    },
+    {
+      "id": "approved-addin",
+      "category": "false_positive",
+      "expected": true,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D5-F1",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+          "CommandLine": "powershell.exe -NoProfile -Command Write-Output 'APPROVED-ADDIN-LAB'",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "Fictional approved Office add-in prints a marker; review yields benign positive without blanket Office exclusions."
+    },
+    {
+      "id": "malformed",
+      "category": "malformed",
+      "expected": false,
+      "events": [
+        {
+          "timestamp": "2026-09-07T12:00:00Z",
+          "record_id": "D5-M1",
+          "EventID": 1,
+          "Channel": "Microsoft-Windows-Sysmon/Operational",
+          "Computer": "LAB-WIN11",
+          "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "CommandLine": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAEQARQBUAEUAQwBUAEkATwBOAC0ATABBAEIALQBTAEEARgBFACcA",
+          "User": "LAB\\analyst"
+        }
+      ],
+      "description": "Missing parent image makes this relation unobservable."
+    }
+  ]
+}

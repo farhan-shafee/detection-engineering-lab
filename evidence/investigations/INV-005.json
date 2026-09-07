@@ -1,0 +1,44 @@
+{
+  "id": "INV-005",
+  "detection_id": "DET-005",
+  "case_id": "approved-addin",
+  "disposition": "benign positive",
+  "rationale": "The Office-to-PowerShell relationship correctly matches the behavior. Scenario approval explains the benign cause, so the alert is retained as a benign positive without broad Office or account allowlisting.",
+  "evidence_refs": [
+    "D5-F1"
+  ],
+  "observations": [
+    "D5-F1 records WINWORD.EXE as ParentImage and powershell.exe as Image on LAB-WIN11 for LAB\\analyst.",
+    "CommandLine only prints APPROVED-ADDIN-LAB.",
+    "No document path, add-in signature, ProcessGuid or real parent event is supplied."
+  ],
+  "inferences": [
+    "The fixture cannot establish macro execution, phishing or a malicious document.",
+    "Expected use depends on fictional package authorization; the parent executable name alone is insufficient."
+  ],
+  "next_steps": [
+    "In a real investigation, collect signed add-in/package identity and owner approval before closure.",
+    "Retain the behavioral alert and benign-positive reason for future baseline decisions.",
+    "Reopen if payload, parent lineage or package identity changes."
+  ],
+  "context": {
+    "what": "An approved fictional Office add-in launched a PowerShell helper.",
+    "user": "LAB\\analyst",
+    "host": "LAB-WIN11",
+    "process": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "parent_process": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+    "command_line": "powershell.exe -NoProfile -Command Write-Output 'APPROVED-ADDIN-LAB'",
+    "timestamp": "2026-09-07T12:00:00Z",
+    "related_activity": "Contributing fixture record IDs: D5-F1. No surrounding live events were collected.",
+    "expected": "Expected according to the explicitly simulated add-in approval."
+  },
+  "provenance": {
+    "telemetry": "deterministic",
+    "analyst_decision": "simulated",
+    "real_incident": false
+  },
+  "scenario_assumptions": [
+    "Fictional change LAB-CHANGE-002 approves this exact add-in helper behavior.",
+    "No Office automation or macro was run; lineage and approval are simulated."
+  ]
+}
