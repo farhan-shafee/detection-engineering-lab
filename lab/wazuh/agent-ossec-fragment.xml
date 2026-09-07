@@ -1,0 +1,26 @@
+<!-- Merge selected localfile blocks inside EXISTING agent ossec_config.
+     This is NOT a replacement agent configuration. Remove duplicates.
+     Include Sysmon only after installation; other channels must exist/enabled.
+     Collection does not enable audit policy or PowerShell script block logging. -->
+<ossec_config>
+  <localfile>
+    <location>Security</location>
+    <log_format>eventchannel</log_format>
+    <query>Event/System[EventID=4624 or EventID=4625 or EventID=4732 or EventID=4698]</query>
+  </localfile>
+  <localfile>
+    <location>Microsoft-Windows-PowerShell/Operational</location>
+    <log_format>eventchannel</log_format>
+    <query>Event/System[EventID=4103 or EventID=4104]</query>
+  </localfile>
+  <localfile>
+    <location>Microsoft-Windows-Sysmon/Operational</location>
+    <log_format>eventchannel</log_format>
+    <query>Event/System[EventID=1]</query>
+  </localfile>
+  <localfile>
+    <location>Microsoft-Windows-Windows Defender/Operational</location>
+    <log_format>eventchannel</log_format>
+    <query>Event/System[EventID=1116 or EventID=1117 or EventID=5007]</query>
+  </localfile>
+</ossec_config>

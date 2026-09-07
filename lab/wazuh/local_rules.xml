@@ -1,0 +1,38 @@
+<!-- Original lab rules. Experimental: XML is checked offline; decoding and rule
+     precedence require Wazuh 4.14.7 logtest plus a real enrolled endpoint.
+     No DET-003 rule: ordered, four-field correlation is implemented in Python.
+     DET-001 intentionally retains the untuned candidate condition. -->
+<group name="windows,detection_lab,">
+  <rule id="110001" level="8">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\(?:powershell|pwsh)\.exe$</field>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)(?:^|\s)-(?:enc|encodedcommand)(?:\s|$)</field>
+    <description>DET-001: PowerShell encoded command candidate; inspect intent.</description>
+    <mitre><id>T1059.001</id></mitre>
+    <group>det001,</group>
+  </rule>
+  <rule id="110002" level="10">
+    <if_sid>60001</if_sid>
+    <field name="win.system.eventID">^4732$</field>
+    <field name="win.eventdata.targetSid">^S-1-5-32-544$</field>
+    <description>DET-002: Member added to local Administrators; verify authorization.</description>
+    <mitre><id>T1098.007</id></mitre>
+    <group>det002,</group>
+  </rule>
+  <rule id="110005" level="10">
+    <if_sid>60001</if_sid>
+    <field name="win.system.eventID">^4698$</field>
+    <field name="win.eventdata.taskContent" type="pcre2">(?is)(?=.*powershell)(?=.*(?:^|[\s&gt;])-(?:enc|encodedcommand)(?:\s|$))</field>
+    <description>DET-004: Task registration contains encoded PowerShell; execution unproven.</description>
+    <mitre><id>T1053.005</id></mitre>
+    <group>det004,</group>
+  </rule>
+  <rule id="110006" level="10">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\(?:powershell|pwsh)\.exe$</field>
+    <field name="win.eventdata.parentImage" type="pcre2">(?i)\\(?:winword|excel|outlook)\.exe$</field>
+    <description>DET-005: Office spawned PowerShell; investigate parent and document.</description>
+    <mitre><id>T1059.001</id></mitre>
+    <group>det005,</group>
+  </rule>
+</group>

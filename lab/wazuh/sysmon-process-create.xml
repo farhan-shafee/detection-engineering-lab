@@ -1,0 +1,11 @@
+<!-- Optional, deliberately narrow lab configuration. Review before installing.
+     This does not cover a production endpoint's telemetry requirements. -->
+<Sysmon schemaversion="4.82">
+  <HashAlgorithms>sha256</HashAlgorithms>
+  <EventFiltering>
+    <ProcessCreate onmatch="include">
+      <Image condition="end with">\powershell.exe</Image>
+      <Image condition="end with">\pwsh.exe</Image>
+    </ProcessCreate>
+  </EventFiltering>
+</Sysmon>
