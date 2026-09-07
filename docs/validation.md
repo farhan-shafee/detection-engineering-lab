@@ -41,7 +41,7 @@ The security scan is a targeted repository guardrail, not proof that all secrets
 
 Clean export: copied only publishable tracked/untracked source files into a new ignored export directory; no `.git` or `.venv` was copied. Using the isolated root interpreter with the export as working directory proved the module imported from the export. All 28 tests passed with no skips, validation passed 51/51, golden report comparison passed and the security scan passed. Local Markdown targets were also checked with no missing files. Windows PowerShell 5.1 policy prevented `-File` execution, so no execution-policy bypass was attempted; the PowerShell 7 wrapper and direct Python route passed.
 
-Remote GitHub Actions: pending push and observed completion. This is not yet a claim of green remote CI. The final run and implementation commit hashes will be added after they are observed.
+Remote GitHub Actions: **all four jobs passed** in [run 34149946792](https://github.com/farhan-shafee/detection-engineering-lab/actions/runs/34149946792) for `ca88350b1548f450344b0e7fc5568f8a7c7a06cc`: Ubuntu/Python 3.11, Ubuntu/Python 3.14, Windows/Python 3.11 and Windows/Python 3.14. Each ran tests, lint/format, detection/fixture validation, deterministic report comparison, security checks and dependency auditing; both Windows jobs also passed the wrapper check. This result was observed before the documentation-only commit recording it.
 
 The exported demo was also run in write mode and reproduced both report files byte-for-byte. Export PowerShell 7.6.5 wrapper validation passed using the interpreter on PATH. Windows PowerShell 5.1.26100.8328 parsed the wrapper with zero syntax errors; its effective Restricted policy blocked execution. Policy was not changed.
 
@@ -51,3 +51,12 @@ Reviewed report SHA-256 values (LF output):
 - Markdown: `ca9970314411829b904c2e7bbf75b7fe2529e9450a78d560b94c44a174f7a147`
 
 First remote run [34149746937](https://github.com/farhan-shafee/detection-engineering-lab/actions/runs/34149746937) on implementation commit `e6b4fe0db67bc50962a483439f1bff46f2efa7c8` completed: both Python 3.14 jobs passed; both Python 3.11 jobs passed functional checks but failed the installed-environment vulnerability audit. The cause was runner-seeded `setuptools` (79.0.1 on Ubuntu, 65.5.0 on Windows), including advisory PYSEC-2026-3447 with a fix in 83.0.0. The validation dependencies now pin `setuptools==84.0.0` (Python >=3.10), verified against PyPI and the upstream advisory; local pip check and the complete installed-environment audit pass. The audit remains enabled without exclusions. The subsequent run is recorded below after completion.
+
+## Delivered commits
+
+- `525c7ee1297f07e6d32b9e4048637edefbb86c59` — baseline audit and implementation plan.
+- `39d504badd7ba509be98d598520abf4bd01726f2` — deterministic detection/investigation engine, evidence, tests and CI.
+- `e6b4fe0db67bc50962a483439f1bff46f2efa7c8` — pinned optional Wazuh setup, safe scripts and interview/security documentation.
+- `ca88350b1548f450344b0e7fc5568f8a7c7a06cc` — fixed vulnerable runner-seeded setuptools; all four CI jobs passed.
+
+These commits were pushed normally to the existing `origin/main`; no history was rewritten. This validation record is committed separately so it can cite an already-observed run. Later documentation-only run status is available in the repository Actions history and the task handoff.

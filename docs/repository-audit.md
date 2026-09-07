@@ -1,7 +1,7 @@
 # Repository audit and implementation plan
 
 Audit performed 2026-09-07 against `4b61aaa`, before changing repository content.
-All 21 tracked files were read; the working tree was clean on `main`. There were
+All 21 tracked files were inventoried; code, rules, data, documentation and CI were reviewed. The working tree was clean on `main`. There were
 no repository or ancestor `AGENTS.md` instructions. Existing history is retained.
 
 | Area | Before | Required change |
